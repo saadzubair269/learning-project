@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+playroom.sqlite3
+playroom.sqlite3-shm
+playroom.sqlite3-wal
