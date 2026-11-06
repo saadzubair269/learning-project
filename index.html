@@ -94,6 +94,10 @@
     .challenge-panel h2 { position: relative; z-index: 1; margin: 15px 0 6px; font-size: 24px; letter-spacing: -.05em; }
     .challenge-panel p { position: relative; z-index: 1; margin: 0; max-width: 265px; color: var(--muted); font-size: 12px; line-height: 1.6; }
     .challenge-panel .action { position: relative; z-index: 1; margin-top: 17px; }
+    .daily-challenge-footer { position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 12px; }
+    .daily-challenge-footer .action { margin-top: 0; }
+    .daily-streak { color: #f4d28a; font: 10px var(--mono); letter-spacing: .035em; }
+    .daily-challenge-status { position: relative; z-index: 1; min-height: 15px; margin-top: 9px; color: var(--cyan); font: 9px var(--mono); }
     .leaderboard-panel { padding: 20px 21px; }
     .leaderboard-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
     .leaderboard-title h2 { margin: 0; font-size: 17px; letter-spacing: -.04em; }
@@ -312,10 +316,14 @@
 
       <section class="showcase-row" aria-label="Daily challenge and high scores">
         <article class="showcase-panel challenge-panel">
-          <div class="panel-kicker">✦ &nbsp; FEATURED CHALLENGE</div>
-          <h2>Neon Cup: traffic run</h2>
-          <p>Thread the traffic, chase your personal best, and get your name on the score wall.</p>
-          <button class="action primary" data-launch-game="nitro">Take the challenge&nbsp; ↗</button>
+          <div class="panel-kicker" id="daily-challenge-date">✦ &nbsp; TODAY'S CHALLENGE</div>
+          <h2 id="daily-challenge-title">Loading today's quest…</h2>
+          <p id="daily-challenge-description">A fresh game to master every day. Finish a round to keep your streak alive.</p>
+          <div class="daily-challenge-footer">
+            <button class="action primary" id="daily-challenge-button" data-launch-game="nitro">Play today's challenge&nbsp; ↗</button>
+            <span class="daily-streak" id="daily-challenge-streak" aria-live="polite"></span>
+          </div>
+          <div class="daily-challenge-status" id="daily-challenge-status" role="status" aria-live="polite"></div>
         </article>
         <article class="showcase-panel leaderboard-panel" aria-labelledby="leaderboard-heading">
           <div class="leaderboard-title">
@@ -385,6 +393,101 @@
       { id: "rps", name: "Rock Paper Scissors", genre: "Quick play", category: "Quick play", icon: "✊", bg: "#303a42", tag: "BEST OF LUCK", desc: "One classic. You vs. the house." },
       { id: "word", name: "Word Sprint", genre: "Typing", category: "Quick play", icon: "⌨️", bg: "#30352c", tag: "30 SECONDS", desc: "Type the words. Beat the clock." }
     ];
+
+    const dailyChallengeTitle = document.getElementById("daily-challenge-title");
+    const dailyChallengeDate = document.getElementById("daily-challenge-date");
+    const dailyChallengeDescription = document.getElementById("daily-challenge-description");
+    const dailyChallengeButton = document.getElementById("daily-challenge-button");
+    const dailyChallengeStreak = document.getElementById("daily-challenge-streak");
+    const dailyChallengeStatus = document.getElementById("daily-challenge-status");
+    const dailyProgressStorageKey = "playroom-daily-progress";
+    let dailyProgressSaveWarning = false;
+    const localDateKey = date =>
+      `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+    function getDailyChallenge(date = new Date()) {
+      const dayIndex = Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86400000);
+      return games[((dayIndex % games.length) + games.length) % games.length];
+    }
+
+    function readDailyProgress() {
+      try {
+        const progress = JSON.parse(localStorage.getItem(dailyProgressStorageKey) || "{}");
+        return {
+          lastCompletedDate: typeof progress.lastCompletedDate === "string" ? progress.lastCompletedDate : "",
+          streak: Number.isSafeInteger(progress.streak) && progress.streak > 0 ? progress.streak : 0,
+          bestStreak: Number.isSafeInteger(progress.bestStreak) && progress.bestStreak > 0 ? progress.bestStreak : 0,
+          completedChallenges: Number.isSafeInteger(progress.completedChallenges) && progress.completedChallenges > 0
+            ? progress.completedChallenges : 0
+        };
+      } catch {
+        return { lastCompletedDate: "", streak: 0, bestStreak: 0, completedChallenges: 0 };
+      }
+    }
+
+    let dailyChallenge = getDailyChallenge();
+    let dailyChallengeToday = localDateKey(new Date());
+    let dailyProgress = readDailyProgress();
+
+    function renderDailyChallenge() {
+      const completedToday = dailyProgress.lastCompletedDate === dailyChallengeToday;
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const currentStreak = completedToday || dailyProgress.lastCompletedDate === localDateKey(yesterday)
+        ? dailyProgress.streak : 0;
+      dailyChallengeDate.textContent = `✦ TODAY'S CHALLENGE · ${new Intl.DateTimeFormat(undefined, {
+        weekday: "short", month: "short", day: "numeric"
+      }).format(new Date())}`;
+      dailyChallengeTitle.textContent = `${dailyChallenge.icon} ${dailyChallenge.name} daily run`;
+      dailyChallengeDescription.textContent = `Play ${dailyChallenge.name} and finish a round today. A new game arrives tomorrow.`;
+      dailyChallengeButton.dataset.launchGame = dailyChallenge.id;
+      dailyChallengeButton.textContent = completedToday ? "Play again · streak secured ✓" : "Play today's challenge  ↗";
+      dailyChallengeStreak.textContent = `🔥 ${currentStreak} day${currentStreak === 1 ? "" : "s"} · best ${dailyProgress.bestStreak}`;
+      dailyChallengeStatus.textContent = completedToday
+        ? dailyProgressSaveWarning
+          ? "QUEST COMPLETE · THIS BROWSER COULD NOT SAVE YOUR STREAK."
+          : `TODAY'S QUEST COMPLETE · ${dailyProgress.completedChallenges} TOTAL COMPLETED`
+        : "FINISH A ROUND TO COMPLETE TODAY'S QUEST";
+    }
+
+    function completeDailyChallenge(gameId) {
+      if (gameId !== dailyChallenge.id || dailyProgress.lastCompletedDate === dailyChallengeToday) return;
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const streak = dailyProgress.lastCompletedDate === localDateKey(yesterday)
+        ? dailyProgress.streak + 1 : 1;
+      const nextProgress = {
+        lastCompletedDate: dailyChallengeToday,
+        streak,
+        bestStreak: Math.max(dailyProgress.bestStreak, streak),
+        completedChallenges: dailyProgress.completedChallenges + 1
+      };
+      dailyProgress = nextProgress;
+      try {
+        localStorage.setItem(dailyProgressStorageKey, JSON.stringify(nextProgress));
+        dailyProgressSaveWarning = false;
+      } catch {
+        dailyProgressSaveWarning = true;
+      }
+      renderDailyChallenge();
+    }
+
+    renderDailyChallenge();
+    window.addEventListener("storage", event => {
+      if (event.key === dailyProgressStorageKey) {
+        dailyProgress = readDailyProgress();
+        renderDailyChallenge();
+      }
+    });
+    setInterval(() => {
+      const today = localDateKey(new Date());
+      if (today !== dailyChallengeToday) {
+        dailyChallengeToday = today;
+        dailyChallenge = getDailyChallenge();
+      }
+      renderDailyChallenge();
+    }, 60_000);
 
     const grid = document.getElementById("game-grid");
     const search = document.getElementById("search");
@@ -554,6 +657,7 @@
     }
 
     async function recordScore(gameId, score) {
+      completeDailyChallenge(gameId);
       if (!scoreServerAvailable) {
         leaderboardStatus.textContent = "START run.bat TO SAVE YOUR SCORE WITH PYTHON.";
         return;

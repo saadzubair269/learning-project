@@ -18,5 +18,8 @@ listens on your own computer.
 - Press `/` or `Ctrl+K` to jump to search; use the star button to pick a random game.
 - Save favorites with the heart buttons. Favorites and recently played games stay
   in this browser.
+- The featured daily challenge rotates between all 12 games. Finish a round in
+  today's featured game to grow your streak; your current and best streaks are
+  saved in this browser.
 - Game dialogs can be closed with `Esc`. Snake and Merge Up also include touch
   direction controls on smaller screens.
