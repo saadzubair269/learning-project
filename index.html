@@ -60,6 +60,12 @@
     .brand-name span { color: var(--lime); }
     .top-meta { display: flex; align-items: center; gap: 22px; color: var(--muted); font: 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
     .top-actions { display: flex; align-items: center; gap: 21px; }
+    .theme-toggle {
+      display: inline-grid; place-items: center; width: 38px; height: 38px; flex: 0 0 auto;
+      border: 1px solid var(--line); border-radius: 50%; background: #ffffff08; color: var(--ink);
+      cursor: pointer; font-size: 17px; transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .theme-toggle:hover { transform: rotate(-12deg); border-color: var(--lime); background: #c0a3ff16; }
     .top-link { color: var(--muted); text-decoration: none; font-size: 11px; transition: color .18s ease; }
     .top-link:hover { color: var(--cyan); }
     .live-dot { display: inline-block; width: 7px; height: 7px; background: var(--lime); border-radius: 50%; margin-right: 7px; box-shadow: 0 0 12px #d3fa6880; }
@@ -246,6 +252,76 @@
     .survivor-controls button { border-color: #65487b; background: #20172c; color: #e2c7ff; touch-action: none; user-select: none; }
     .survivor-controls button:active, .survivor-controls button.pressed { border-color: #d3a3ff; background: #b274e8; color: #160d20; }
     .survivor-controls .control-spacer { visibility: hidden; }
+    body[data-theme="light"] {
+      color-scheme: light;
+      --ink: #211b36;
+      --muted: #716b82;
+      --bg: #f6f5fb;
+      --panel: #ffffff;
+      --line: #e6e2ef;
+      --lime: #7458dc;
+      --orange: #d95279;
+      --cyan: #087c78;
+      background:
+        radial-gradient(ellipse at 82% 7%, #dcd3ff70 0, transparent 34rem),
+        radial-gradient(ellipse at 4% 43%, #c9efeb70 0, transparent 35rem),
+        var(--bg);
+    }
+    body[data-theme="light"] .topbar { background: #fdfcffed; }
+    body[data-theme="light"] .theme-toggle { background: #f3f0fb; }
+    body[data-theme="light"] .theme-toggle:hover { background: #e8e1fb; }
+    body[data-theme="light"] .brand-mark { color: #fff; box-shadow: 0 5px 16px #7158db35; }
+    body[data-theme="light"] .live-dot { box-shadow: 0 0 12px #7458dc65; }
+    body[data-theme="light"] .orbit { border-color: #7458dc32; }
+    body[data-theme="light"] .orbit::before, body[data-theme="light"] .orbit::after { border-color: #7458dc24; }
+    body[data-theme="light"] .hero-star { text-shadow: 0 0 70px #7458dc4d; }
+    body[data-theme="light"] .float-chip { border-color: #7458dc28; background: #fff8; color: var(--ink); }
+    body[data-theme="light"] .chip-two { color: var(--cyan); }
+    body[data-theme="light"] .hero-cta { border-color: #7458dc55; background: #7458dc0c; }
+    body[data-theme="light"] .hero-cta.featured { border-color: #7458dc65; background: linear-gradient(110deg, #7458dc18, #d9527910); }
+    body[data-theme="light"] .showcase-panel { border-color: var(--line); background: #fff; box-shadow: 0 12px 32px #211b360b; animation: none; }
+    body[data-theme="light"] .challenge-panel { background: radial-gradient(ellipse at 88% 48%, #d9c9ffba, transparent 54%), linear-gradient(135deg, #eee8ff, #fff4f0 76%); }
+    body[data-theme="light"] .challenge-panel::after { color: #7458dc; text-shadow: 0 0 30px #a88cff88; }
+    body[data-theme="light"] .daily-streak { color: #91611c; }
+    body[data-theme="light"] .score-controls input,
+    body[data-theme="light"] .score-controls select,
+    body[data-theme="light"] #search,
+    body[data-theme="light"] .tool-select { border-color: var(--line); background: #faf9fd; color: var(--ink); }
+    body[data-theme="light"] .score-row { background: #f5f3fa; }
+    body[data-theme="light"] .search-shortcut { border-color: var(--line); background: #fff; }
+    body[data-theme="light"] .surprise-button { border-color: #7458dc55; background: #7458dc10; color: var(--lime); }
+    body[data-theme="light"] .surprise-button:hover { background: #087c7812; }
+    body[data-theme="light"] .filter { border-color: #ded9e9; background: #fff9; color: var(--muted); }
+    body[data-theme="light"] .filter:hover,
+    body[data-theme="light"] .filter.active { border-color: var(--lime); background: var(--lime); color: #fff; box-shadow: 0 6px 16px #7458dc32; }
+    body[data-theme="light"] .game-card { border-color: var(--line); background: #fff; box-shadow: 0 7px 22px #211b360b; }
+    body[data-theme="light"] .game-card:hover { border-color: #b8a8e8; background: #fff; box-shadow: 0 14px 30px #211b3618; }
+    body[data-theme="light"] .game-card[data-game="survivor"] { border-color: #b8a1ea; box-shadow: 0 8px 26px #7458dc16; }
+    body[data-theme="light"] .game-card[data-game="survivor"] .game-art { background: radial-gradient(ellipse at 50% 70%, #be9bff99, transparent 53%), linear-gradient(140deg, #7250aa, #31264b); }
+    body[data-theme="light"] .play-button { color: #fff; background: linear-gradient(135deg, #087c78, #7458dc); }
+    body[data-theme="light"] .play-button:hover { box-shadow: 0 0 18px #7458dc55; }
+    body[data-theme="light"] .favorite-button { border-color: #ffffff8a; background: #252036c9; color: #fff; }
+    body[data-theme="light"] .favorite-button:hover,
+    body[data-theme="light"] .favorite-button[aria-pressed="true"] { border-color: #f5b0c2; color: #ff9fba; background: #3a2032ed; }
+    body[data-theme="light"] .overlay { background: #211b367a; }
+    body[data-theme="light"] .game-modal { border-color: #e2dced; background: #fff; box-shadow: 0 24px 80px #211b3633; }
+    body[data-theme="light"] .modal-head { background: linear-gradient(90deg, #7458dc0d, transparent); }
+    body[data-theme="light"] .close-button { border-color: var(--line); }
+    body[data-theme="light"] .close-button:hover { border-color: var(--lime); }
+    body[data-theme="light"] .game-help { border-color: #7458dc35; background: #7458dc0b; }
+    body[data-theme="light"] .touch-controls button { border-color: #d8d2e5; background: #f4f1fa; color: var(--cyan); }
+    body[data-theme="light"] .touch-controls button:active { background: var(--lime); color: #fff; }
+    body[data-theme="light"] .action { border-color: #ded9e8; background: #f6f4fa; }
+    body[data-theme="light"] .action.primary { border-color: var(--lime); background: var(--lime); color: #fff; }
+    body[data-theme="light"] .action.primary:hover { border-color: #6042c5; background: #6042c5; color: #fff; }
+    body[data-theme="light"] .board-cell { border-color: #ded9e8; background: #f7f5fb; }
+    body[data-theme="light"] .memory-card { background: #eeeaf6; }
+    body[data-theme="light"] .memory-card.revealed,
+    body[data-theme="light"] .memory-card.matched { border-color: var(--lime); background: var(--lime); color: #fff; }
+    body[data-theme="light"] .grid2048 { background: #e6e1ef; }
+    body[data-theme="light"] .reflex-pad { border-color: #ded9e8; background: #f2eff8; }
+    body[data-theme="light"] .word-input { border-color: #ded9e8; background: #faf9fd; color: var(--ink); }
+    body[data-theme="light"] footer { border-color: var(--line); }
     @keyframes hero-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
     @keyframes neon-pulse { 0%, 100% { box-shadow: 0 0 13px #7cffe11c; } 50% { box-shadow: 0 0 26px #c0a3ff38; } }
     .showcase-panel { animation: neon-pulse 6s ease-in-out infinite; }
@@ -318,6 +394,8 @@
           <a class="top-link" href="#leaderboard-heading">Score wall</a>
         </nav>
         <div class="top-meta"><span><i class="live-dot"></i>NEON ARCADE LIVE</span><span><span id="top-game-count">13</span> GAMES</span></div>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme"><span aria-hidden="true">☼</span></button>
+        <span class="visually-hidden" id="theme-status" role="status" aria-live="polite"></span>
       </div>
     </header>
 
@@ -408,6 +486,39 @@
   </div>
 
   <script>
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeStatus = document.getElementById("theme-status");
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    let activeTheme = "dark";
+    try {
+      activeTheme = localStorage.getItem("playroom-theme") === "light" ? "light" : "dark";
+    } catch {
+      themeStatus.textContent = "Your theme preference could not be loaded.";
+    }
+
+    function applyTheme(theme) {
+      activeTheme = theme;
+      document.body.dataset.theme = theme;
+      const isLight = theme === "light";
+      themeToggle.setAttribute("aria-pressed", String(isLight));
+      themeToggle.setAttribute("aria-label", `Switch to ${isLight ? "dark" : "light"} theme`);
+      themeToggle.title = `Switch to ${isLight ? "dark" : "light"} theme`;
+      themeToggle.firstElementChild.textContent = isLight ? "☾" : "☼";
+      themeColor.content = isLight ? "#f6f5fb" : "#0b0c14";
+    }
+
+    applyTheme(activeTheme);
+    themeToggle.addEventListener("click", () => {
+      const nextTheme = activeTheme === "dark" ? "light" : "dark";
+      applyTheme(nextTheme);
+      try {
+        localStorage.setItem("playroom-theme", nextTheme);
+        themeStatus.textContent = `${nextTheme === "light" ? "Light" : "Dark"} theme enabled.`;
+      } catch {
+        themeStatus.textContent = `Theme changed, but your preference could not be saved.`;
+      }
+    });
+
     const games = [
       { id: "nitro", name: "Nitro Run", genre: "Racing", category: "Action", icon: "🏎️", bg: "#293a35", tag: "ENDLESS RACE", desc: "Dodge traffic. Chase the high score." },
       { id: "duel", name: "Shadow Duel", genre: "Fighting", category: "Action", icon: "🥊", bg: "#3d2929", tag: "1P VS CPU", desc: "Pick your move. Outsmart your rival." },
