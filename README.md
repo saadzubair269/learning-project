@@ -1,6 +1,6 @@
 # Playroom Arcade
 
-A browser-based arcade with 12 mini-games and a Python-powered local leaderboard.
+A browser-based arcade with 13 games and a Python-powered local leaderboard.
 
 ## Run it
 
@@ -18,10 +18,16 @@ listens on your own computer.
 - Press `/` or `Ctrl+K` to jump to search; use the star button to pick a random game.
 - Save favorites with the heart buttons. Favorites and recently played games stay
   in this browser.
-- The featured daily challenge rotates between all 12 games. Finish a round in
+- The featured daily challenge rotates between all 13 games. Finish a round in
   today's featured game to grow your streak; your current and best streaks are
   saved in this browser.
+<<<<<<< HEAD
 - Temple Run 2, Subway Surfers, and 4D Car Game are listed separately as in
   progress; they are not playable yet.
+=======
+- **Void Survivor** is a wave-based arena game with auto-targeting, level-up
+  upgrades, enemy types, and boss fights. Move with WASD or the arrow keys
+  (or use the on-screen controls on smaller screens).
+>>>>>>> origin/main
 - Game dialogs can be closed with `Esc`. Snake and Merge Up also include touch
   direction controls on smaller screens.
