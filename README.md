@@ -21,5 +21,7 @@ listens on your own computer.
 - The featured daily challenge rotates between all 12 games. Finish a round in
   today's featured game to grow your streak; your current and best streaks are
   saved in this browser.
+- Temple Run 2, Subway Surfers, and 4D Car Game are listed separately as in
+  progress; they are not playable yet.
 - Game dialogs can be closed with `Esc`. Snake and Merge Up also include touch
   direction controls on smaller screens.
