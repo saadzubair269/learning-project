@@ -4,10 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0c14">
+<<<<<<< HEAD
   <title>playground arena games </title>
+=======
+  <title>furryROOM — Neon arcade for everyone</title>
+>>>>>>> origin/main
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
+/* dkadhjkhdhd */
+    
     :root {
       color-scheme: dark;
       --ink: #f7f4ff;
@@ -16,12 +21,13 @@
       --panel: #151624;
       --line: #2b2d42;
       --lime: #c0a3ff;
+     /* jhdjkhdshsk */
       --orange: #ff709f;
       --cyan: #7cffe1;
       --mono: "DM Mono", monospace;
       --display: "Space Grotesk", sans-serif;
     }
-
+/* welcome to my website */
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -36,8 +42,17 @@
     }
     button, input { font: inherit; }
     button { color: inherit; }
-    .shell { max-width: 1440px; margin: auto; padding: 0 6.1%; }
+    .shell { position: relative; max-width: 1440px; margin: auto; padding: 0 6.1%; }
     .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .background-runner {
+      position: absolute; inset: 0 0 auto 0; height: 240px; pointer-events: none; z-index: 0; opacity: .9;
+      background: linear-gradient(180deg, rgba(22, 17, 32, 0.2), rgba(9, 10, 16, 0.1));
+      overflow: hidden;
+    }
+    .background-runner canvas {
+      display: block; width: 100%; height: 100%;
+      filter: saturate(1.25) contrast(1.05);
+    }
     .skip-link { position: fixed; top: 8px; left: 8px; z-index: 8; padding: 10px 14px; transform: translateY(-160%); border-radius: 6px; background: var(--cyan); color: #10131b; font-size: 13px; font-weight: 700; }
     .skip-link:focus { transform: translateY(0); }
     .topbar {
@@ -60,6 +75,12 @@
     .brand-name span { color: var(--lime); }
     .top-meta { display: flex; align-items: center; gap: 22px; color: var(--muted); font: 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
     .top-actions { display: flex; align-items: center; gap: 21px; }
+    .theme-toggle {
+      display: inline-grid; place-items: center; width: 38px; height: 38px; flex: 0 0 auto;
+      border: 1px solid var(--line); border-radius: 50%; background: #ffffff08; color: var(--ink);
+      cursor: pointer; font-size: 17px; transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .theme-toggle:hover { transform: rotate(-12deg); border-color: var(--lime); background: #c0a3ff16; }
     .top-link { color: var(--muted); text-decoration: none; font-size: 11px; transition: color .18s ease; }
     .top-link:hover { color: var(--cyan); }
     .live-dot { display: inline-block; width: 7px; height: 7px; background: var(--lime); border-radius: 50%; margin-right: 7px; box-shadow: 0 0 12px #d3fa6880; }
@@ -94,6 +115,10 @@
     .challenge-panel h2 { position: relative; z-index: 1; margin: 15px 0 6px; font-size: 24px; letter-spacing: -.05em; }
     .challenge-panel p { position: relative; z-index: 1; margin: 0; max-width: 265px; color: var(--muted); font-size: 12px; line-height: 1.6; }
     .challenge-panel .action { position: relative; z-index: 1; margin-top: 17px; }
+    .daily-challenge-footer { position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 12px; }
+    .daily-challenge-footer .action { margin-top: 0; }
+    .daily-streak { color: #f4d28a; font: 10px var(--mono); letter-spacing: .035em; }
+    .daily-challenge-status { position: relative; z-index: 1; min-height: 15px; margin-top: 9px; color: var(--cyan); font: 9px var(--mono); }
     .leaderboard-panel { padding: 20px 21px; }
     .leaderboard-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
     .leaderboard-title h2 { margin: 0; font-size: 17px; letter-spacing: -.04em; }
@@ -221,6 +246,97 @@
     .health-fill { height: 100%; background: var(--lime); transition: width .25s; }
     .health.enemy .health-fill { background: var(--orange); }
     .fighter-stage { text-align: center; padding: 24px 0; font-size: 58px; background: radial-gradient(ellipse, #3c422e 0%, #171a17 70%); border-radius: 8px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 21px; }
+    .hero-buttons .hero-cta { margin-top: 0; }
+    .hero-cta.featured { border-color: #b383ff70; background: linear-gradient(110deg, #c0a3ff20, #ff709f12); }
+    .hero-cta.featured:hover { border-color: var(--orange); }
+    .game-card[data-game="survivor"] { border-color: #8c58bd; box-shadow: inset 0 0 0 1px #c38dff14; }
+    .game-card[data-game="survivor"] .game-art { background: radial-gradient(ellipse at 50% 70%, #9d43d252, transparent 53%), linear-gradient(140deg, #392451, #14131f); }
+    .game-card[data-game="survivor"] .art-icon { animation: hero-float 3.2s ease-in-out infinite; }
+    .survivor-arena { position: relative; width: min(100%, 520px); margin: 0 auto; overflow: hidden; border: 1px solid #5b3e78; border-radius: 8px; background: #100d19; box-shadow: 0 0 36px #a348e51c; }
+    .survivor-arena .game-canvas { width: 100%; margin: 0; border: 0; border-radius: 0; background: transparent; }
+    .survivor-upgrades { position: absolute; inset: 0; z-index: 2; display: grid; align-content: center; gap: 11px; overflow: auto; padding: 20px; background: #100b19eF; backdrop-filter: blur(7px); }
+    .survivor-upgrades h3 { margin: 0; color: #f7f1ff; text-align: center; font-size: 22px; }
+    .survivor-upgrades p { margin: 0 0 4px; color: #c1adc9; text-align: center; font: 10px var(--mono); letter-spacing: .08em; }
+    .upgrade-choice { display: grid; grid-template-columns: 35px minmax(0, 1fr); align-items: center; gap: 11px; width: 100%; padding: 12px; border: 1px solid #674982; border-radius: 8px; background: #21182d; color: var(--ink); text-align: left; cursor: pointer; transition: transform .18s, border-color .18s, background .18s; }
+    .upgrade-choice:hover { transform: translateY(-2px); border-color: #d3a3ff; background: #30203e; }
+    .upgrade-icon { font-size: 23px; text-align: center; }
+    .upgrade-choice strong, .upgrade-choice small { display: block; }
+    .upgrade-choice small { margin-top: 3px; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .survivor-controls { margin-top: 10px; }
+    .survivor-controls button { border-color: #65487b; background: #20172c; color: #e2c7ff; touch-action: none; user-select: none; }
+    .survivor-controls button:active, .survivor-controls button.pressed { border-color: #d3a3ff; background: #b274e8; color: #160d20; }
+    .survivor-controls .control-spacer { visibility: hidden; }
+    body[data-theme="light"] {
+      color-scheme: light;
+      --ink: #211b36;
+      --muted: #716b82;
+      --bg: #f6f5fb;
+      --panel: #ffffff;
+      --line: #e6e2ef;
+      --lime: #7458dc;
+      --orange: #d95279;
+      --cyan: #087c78;
+      background:
+        radial-gradient(ellipse at 82% 7%, #dcd3ff70 0, transparent 34rem),
+        radial-gradient(ellipse at 4% 43%, #c9efeb70 0, transparent 35rem),
+        var(--bg);
+    }
+    body[data-theme="light"] .topbar { background: #fdfcffed; }
+    body[data-theme="light"] .theme-toggle { background: #f3f0fb; }
+    body[data-theme="light"] .theme-toggle:hover { background: #e8e1fb; }
+    body[data-theme="light"] .brand-mark { color: #fff; box-shadow: 0 5px 16px #7158db35; }
+    body[data-theme="light"] .live-dot { box-shadow: 0 0 12px #7458dc65; }
+    body[data-theme="light"] .orbit { border-color: #7458dc32; }
+    body[data-theme="light"] .orbit::before, body[data-theme="light"] .orbit::after { border-color: #7458dc24; }
+    body[data-theme="light"] .hero-star { text-shadow: 0 0 70px #7458dc4d; }
+    body[data-theme="light"] .float-chip { border-color: #7458dc28; background: #fff8; color: var(--ink); }
+    body[data-theme="light"] .chip-two { color: var(--cyan); }
+    body[data-theme="light"] .hero-cta { border-color: #7458dc55; background: #7458dc0c; }
+    body[data-theme="light"] .hero-cta.featured { border-color: #7458dc65; background: linear-gradient(110deg, #7458dc18, #d9527910); }
+    body[data-theme="light"] .showcase-panel { border-color: var(--line); background: #fff; box-shadow: 0 12px 32px #211b360b; animation: none; }
+    body[data-theme="light"] .challenge-panel { background: radial-gradient(ellipse at 88% 48%, #d9c9ffba, transparent 54%), linear-gradient(135deg, #eee8ff, #fff4f0 76%); }
+    body[data-theme="light"] .challenge-panel::after { color: #7458dc; text-shadow: 0 0 30px #a88cff88; }
+    body[data-theme="light"] .daily-streak { color: #91611c; }
+    body[data-theme="light"] .score-controls input,
+    body[data-theme="light"] .score-controls select,
+    body[data-theme="light"] #search,
+    body[data-theme="light"] .tool-select { border-color: var(--line); background: #faf9fd; color: var(--ink); }
+    body[data-theme="light"] .score-row { background: #f5f3fa; }
+    body[data-theme="light"] .search-shortcut { border-color: var(--line); background: #fff; }
+    body[data-theme="light"] .surprise-button { border-color: #7458dc55; background: #7458dc10; color: var(--lime); }
+    body[data-theme="light"] .surprise-button:hover { background: #087c7812; }
+    body[data-theme="light"] .filter { border-color: #ded9e9; background: #fff9; color: var(--muted); }
+    body[data-theme="light"] .filter:hover,
+    body[data-theme="light"] .filter.active { border-color: var(--lime); background: var(--lime); color: #fff; box-shadow: 0 6px 16px #7458dc32; }
+    body[data-theme="light"] .game-card { border-color: var(--line); background: #fff; box-shadow: 0 7px 22px #211b360b; }
+    body[data-theme="light"] .game-card:hover { border-color: #b8a8e8; background: #fff; box-shadow: 0 14px 30px #211b3618; }
+    body[data-theme="light"] .game-card[data-game="survivor"] { border-color: #b8a1ea; box-shadow: 0 8px 26px #7458dc16; }
+    body[data-theme="light"] .game-card[data-game="survivor"] .game-art { background: radial-gradient(ellipse at 50% 70%, #be9bff99, transparent 53%), linear-gradient(140deg, #7250aa, #31264b); }
+    body[data-theme="light"] .play-button { color: #fff; background: linear-gradient(135deg, #087c78, #7458dc); }
+    body[data-theme="light"] .play-button:hover { box-shadow: 0 0 18px #7458dc55; }
+    body[data-theme="light"] .favorite-button { border-color: #ffffff8a; background: #252036c9; color: #fff; }
+    body[data-theme="light"] .favorite-button:hover,
+    body[data-theme="light"] .favorite-button[aria-pressed="true"] { border-color: #f5b0c2; color: #ff9fba; background: #3a2032ed; }
+    body[data-theme="light"] .overlay { background: #211b367a; }
+    body[data-theme="light"] .game-modal { border-color: #e2dced; background: #fff; box-shadow: 0 24px 80px #211b3633; }
+    body[data-theme="light"] .modal-head { background: linear-gradient(90deg, #7458dc0d, transparent); }
+    body[data-theme="light"] .close-button { border-color: var(--line); }
+    body[data-theme="light"] .close-button:hover { border-color: var(--lime); }
+    body[data-theme="light"] .game-help { border-color: #7458dc35; background: #7458dc0b; }
+    body[data-theme="light"] .touch-controls button { border-color: #d8d2e5; background: #f4f1fa; color: var(--cyan); }
+    body[data-theme="light"] .touch-controls button:active { background: var(--lime); color: #fff; }
+    body[data-theme="light"] .action { border-color: #ded9e8; background: #f6f4fa; }
+    body[data-theme="light"] .action.primary { border-color: var(--lime); background: var(--lime); color: #fff; }
+    body[data-theme="light"] .action.primary:hover { border-color: #6042c5; background: #6042c5; color: #fff; }
+    body[data-theme="light"] .board-cell { border-color: #ded9e8; background: #f7f5fb; }
+    body[data-theme="light"] .memory-card { background: #eeeaf6; }
+    body[data-theme="light"] .memory-card.revealed,
+    body[data-theme="light"] .memory-card.matched { border-color: var(--lime); background: var(--lime); color: #fff; }
+    body[data-theme="light"] .grid2048 { background: #e6e1ef; }
+    body[data-theme="light"] .reflex-pad { border-color: #ded9e8; background: #f2eff8; }
+    body[data-theme="light"] .word-input { border-color: #ded9e8; background: #faf9fd; color: var(--ink); }
+    body[data-theme="light"] footer { border-color: var(--line); }
     @keyframes hero-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
     @keyframes neon-pulse { 0%, 100% { box-shadow: 0 0 13px #7cffe11c; } 50% { box-shadow: 0 0 26px #c0a3ff38; } }
     .showcase-panel { animation: neon-pulse 6s ease-in-out infinite; }
@@ -238,6 +354,11 @@
       .hero p { max-width: 290px; font-size: 13px; }
       .hero-stats { gap: 22px; }
       .hero-cta { margin-top: 16px; }
+      .hero-buttons { margin-top: 16px; gap: 8px; }
+      .hero-buttons .hero-cta { padding: 10px 11px; font-size: 10px; }
+      .survivor-upgrades { gap: 7px; padding: 10px; }
+      .survivor-upgrades h3 { font-size: 18px; }
+      .upgrade-choice { padding: 8px; }
       .showcase-row { grid-template-columns: 1fr; gap: 10px; padding-bottom: 36px; }
       .challenge-panel { min-height: 196px; padding: 19px; }
       .challenge-panel::after { right: 14px; font-size: 63px; }
@@ -287,22 +408,30 @@
           <a class="top-link" href="#game-shelf">Games</a>
           <a class="top-link" href="#leaderboard-heading">Score wall</a>
         </nav>
-        <div class="top-meta"><span><i class="live-dot"></i>NEON ARCADE LIVE</span><span>12 MINI GAMES</span></div>
+        <div class="top-meta"><span><i class="live-dot"></i>NEON ARCADE LIVE</span><span><span id="top-game-count">14</span> GAMES</span></div>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme"><span aria-hidden="true">☼</span></button>
+        <span class="visually-hidden" id="theme-status" role="status" aria-live="polite"></span>
       </div>
     </header>
 
     <main>
+      <div class="background-runner" aria-hidden="true">
+        <canvas id="background-runner" width="1200" height="240"></canvas>
+      </div>
       <section class="hero">
         <div class="hero-copy">
           <div class="eyebrow">YOUR LITTLE CORNER OF PLAY</div>
           <h1>Pick a<br><span>new mood.</span></h1>
-          <p>12 little worlds. Zero downloads.<br>Just you, a high score, and one more round.</p>
+          <p>14 little worlds. Zero downloads.<br>Just you, a high score, and one more round.</p>
           <div class="hero-stats">
-            <div class="stat"><strong>12</strong><small>mini games</small></div>
+            <div class="stat"><strong id="game-total">14</strong><small>arcade games</small></div>
             <div class="stat"><strong>∞</strong><small>rematches</small></div>
             <div class="stat"><strong>0</strong><small>downloads</small></div>
           </div>
-          <a class="hero-cta" href="#game-shelf">Find your next game <span>↓</span></a>
+          <div class="hero-buttons">
+            <button class="hero-cta featured" type="button" data-launch-game="survivor">Enter the void <span>↗</span></button>
+            <a class="hero-cta" href="#game-shelf">Find your next game <span>↓</span></a>
+          </div>
         </div>
         <div class="hero-art" aria-hidden="true">
           <div class="orbit"></div><div class="hero-star">✳</div>
@@ -312,10 +441,14 @@
 
       <section class="showcase-row" aria-label="Daily challenge and high scores">
         <article class="showcase-panel challenge-panel">
-          <div class="panel-kicker">✦ &nbsp; FEATURED CHALLENGE</div>
-          <h2>Neon Cup: traffic run</h2>
-          <p>Thread the traffic, chase your personal best, and get your name on the score wall.</p>
-          <button class="action primary" data-launch-game="nitro">Take the challenge&nbsp; ↗</button>
+          <div class="panel-kicker" id="daily-challenge-date">✦ &nbsp; TODAY'S CHALLENGE</div>
+          <h2 id="daily-challenge-title">Loading today's quest…</h2>
+          <p id="daily-challenge-description">A fresh game to master every day. Finish a round to keep your streak alive.</p>
+          <div class="daily-challenge-footer">
+            <button class="action primary" id="daily-challenge-button" data-launch-game="nitro">Play today's challenge&nbsp; ↗</button>
+            <span class="daily-streak" id="daily-challenge-streak" aria-live="polite"></span>
+          </div>
+          <div class="daily-challenge-status" id="daily-challenge-status" role="status" aria-live="polite"></div>
         </article>
         <article class="showcase-panel leaderboard-panel" aria-labelledby="leaderboard-heading">
           <div class="leaderboard-title">
@@ -346,18 +479,18 @@
           </div>
         </div>
         <nav class="filter-row" id="game-filters" aria-label="Filter games" role="group">
-          <button class="filter active" data-category="All" aria-pressed="true">All games <span>12</span></button>
-          <button class="filter" data-category="Action" aria-pressed="false">Action <span>3</span></button>
+          <button class="filter active" data-category="All" aria-pressed="true">All games <span data-category-count="All">14</span></button>
+          <button class="filter" data-category="Action" aria-pressed="false">Action <span data-category-count="Action">4</span></button>
           <button class="filter" data-category="Arcade" aria-pressed="false">Arcade <span>3</span></button>
           <button class="filter" data-category="Puzzle" aria-pressed="false">Puzzle <span>3</span></button>
-          <button class="filter" data-category="Quick play" aria-pressed="false">Quick play <span>3</span></button>
+          <button class="filter" data-category="Quick play" aria-pressed="false">Quick play <span>4</span></button>
           <button class="filter" data-category="Favorites" aria-label="Show favorite games" aria-pressed="false">♥ Favorites <span id="favorite-count">0</span></button>
         </nav>
         <p class="results-line" id="results-line" aria-live="polite"></p>
         <div class="game-grid" id="game-grid"></div>
       </section>
     </main>
-    <footer><span>© PLAYROOM ARCADE</span><span>BUILT FOR THE JOY OF IT ✦</span><span>PYTHON SCORE SERVER · 12 GAMES</span></footer>
+    <footer><span>© PLAYROOM ARCADE</span><span>BUILT FOR THE JOY OF IT ✦</span><span>PYTHON SCORE SERVER · <span id="footer-game-count">14</span> GAMES</span></footer>
   </div>
 
   <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
@@ -371,10 +504,217 @@
   </div>
 
   <script>
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeStatus = document.getElementById("theme-status");
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    let activeTheme = "dark";
+    try {
+      activeTheme = localStorage.getItem("playroom-theme") === "light" ? "light" : "dark";
+    } catch {
+      themeStatus.textContent = "Your theme preference could not be loaded.";
+    }
+
+    function applyTheme(theme) {
+      activeTheme = theme;
+      document.body.dataset.theme = theme;
+      const isLight = theme === "light";
+      themeToggle.setAttribute("aria-pressed", String(isLight));
+      themeToggle.setAttribute("aria-label", `Switch to ${isLight ? "dark" : "light"} theme`);
+      themeToggle.title = `Switch to ${isLight ? "dark" : "light"} theme`;
+      themeToggle.firstElementChild.textContent = isLight ? "☾" : "☼";
+      themeColor.content = isLight ? "#f6f5fb" : "#0b0c14";
+    }
+
+    applyTheme(activeTheme);
+    themeToggle.addEventListener("click", () => {
+      const nextTheme = activeTheme === "dark" ? "light" : "dark";
+      applyTheme(nextTheme);
+      try {
+        localStorage.setItem("playroom-theme", nextTheme);
+        themeStatus.textContent = `${nextTheme === "light" ? "Light" : "Dark"} theme enabled.`;
+      } catch {
+        themeStatus.textContent = `Theme changed, but your preference could not be saved.`;
+      }
+    });
+
+    const backgroundCanvas = document.getElementById("background-runner");
+    const backgroundCtx = backgroundCanvas.getContext("2d");
+    let backgroundRunner = null;
+
+    function startBackgroundRunner() {
+      if (backgroundRunner) return;
+      const groundY = 180;
+      const stars = Array.from({ length: 45 }, () => ({
+        x: Math.random() * backgroundCanvas.width,
+        y: Math.random() * 120,
+        r: Math.random() * 2.2 + 0.8,
+        a: Math.random() * 0.8 + 0.2
+      }));
+      let player = { x: 110, y: groundY - 30, w: 30, h: 30, vy: 0, onGround: true };
+      let obstacles = [];
+      let spawnTimer = 0;
+      let score = 0;
+      let started = false;
+      let last = 0;
+
+      function reset() {
+        player.y = groundY - 30;
+        player.vy = 0;
+        player.onGround = true;
+        obstacles = [];
+        spawnTimer = 0;
+        score = Math.max(0, score);
+        started = true;
+      }
+
+      function jump() {
+        if (!started) {
+          reset();
+          return;
+        }
+        if (player.onGround) {
+          player.vy = -9.5;
+          player.onGround = false;
+        }
+      }
+
+      function loop(timestamp) {
+        const dt = Math.min((timestamp - (last || timestamp)) / 16.67, 2);
+        last = timestamp;
+
+        backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+
+        const sky = backgroundCtx.createLinearGradient(0, 0, 0, backgroundCanvas.height);
+        sky.addColorStop(0, "#140d22");
+        sky.addColorStop(0.45, "#221734");
+        sky.addColorStop(0.8, "#0f1220");
+        sky.addColorStop(1, "#090b12");
+        backgroundCtx.fillStyle = sky;
+        backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+
+        stars.forEach((star, index) => {
+          const flicker = 0.6 + Math.sin((timestamp / 430) + index) * 0.4;
+          backgroundCtx.beginPath();
+          backgroundCtx.fillStyle = `rgba(255,255,255,${star.a * flicker})`;
+          backgroundCtx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+          backgroundCtx.fill();
+        });
+
+        const orb = backgroundCtx.createRadialGradient(backgroundCanvas.width * 0.78, 60, 20, backgroundCanvas.width * 0.78, 60, 120);
+        orb.addColorStop(0, "rgba(255, 171, 84, 0.9)");
+        orb.addColorStop(0.35, "rgba(197, 0, 255, 0.4)");
+        orb.addColorStop(1, "rgba(197, 0, 255, 0)");
+        backgroundCtx.fillStyle = orb;
+        backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+
+        if (started) {
+          player.vy += 0.42 * dt;
+          player.y += player.vy * dt;
+          if (player.y >= groundY - player.h) {
+            player.y = groundY - player.h;
+            player.vy = 0;
+            player.onGround = true;
+          }
+
+          spawnTimer += dt;
+          if (spawnTimer > 52) {
+            const h = 22 + Math.random() * 34;
+            obstacles.push({ x: backgroundCanvas.width + 18, y: groundY - h, w: 18 + Math.random() * 12, h });
+            spawnTimer = 0;
+          }
+
+          for (let i = obstacles.length - 1; i >= 0; i--) {
+            const obstacle = obstacles[i];
+            obstacle.x -= 5.5 * dt;
+            if (obstacle.x + obstacle.w < 0) {
+              obstacles.splice(i, 1);
+              score += 1;
+              continue;
+            }
+
+            const collisions = player.x + player.w > obstacle.x && player.x < obstacle.x + obstacle.w && player.y + player.h > obstacle.y && player.y < obstacle.y + obstacle.h;
+            if (collisions) {
+              started = false;
+              break;
+            }
+          }
+        }
+
+        backgroundCtx.fillStyle = "#0d0f1a";
+        backgroundCtx.fillRect(0, groundY, backgroundCanvas.width, backgroundCanvas.height - groundY);
+
+        backgroundCtx.strokeStyle = "rgba(124,255,225,0.35)";
+        backgroundCtx.lineWidth = 1;
+        for (let x = -10; x < backgroundCanvas.width + 20; x += 30) {
+          backgroundCtx.beginPath();
+          backgroundCtx.moveTo(x, groundY);
+          backgroundCtx.lineTo(x + 20, groundY + 34);
+          backgroundCtx.stroke();
+        }
+
+        backgroundCtx.fillStyle = "rgba(195, 251, 108, 0.36)";
+        for (let x = -20; x < backgroundCanvas.width + 20; x += 36) {
+          backgroundCtx.fillRect(x, groundY + 18, 18, 4);
+        }
+
+        backgroundCtx.save();
+        backgroundCtx.shadowBlur = 18;
+        backgroundCtx.shadowColor = "#8ef5ff";
+        backgroundCtx.fillStyle = "#7cffe1";
+        backgroundCtx.fillRect(player.x, player.y, player.w, player.h);
+        backgroundCtx.restore();
+
+        obstacles.forEach(obstacle => {
+          backgroundCtx.save();
+          backgroundCtx.shadowBlur = 18;
+          backgroundCtx.shadowColor = "#ff709f";
+          backgroundCtx.fillStyle = "#ff709f";
+          backgroundCtx.fillRect(obstacle.x, obstacle.y, obstacle.w, obstacle.h);
+          backgroundCtx.restore();
+        });
+
+        backgroundCtx.fillStyle = "rgba(255,255,255,0.85)";
+        backgroundCtx.font = "12px 'DM Mono', monospace";
+        backgroundCtx.fillText(`runner ${score}`, 20, 26);
+
+        if (!started) {
+          backgroundCtx.fillStyle = "rgba(11, 12, 20, 0.7)";
+          backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+
+          backgroundCtx.fillStyle = "#f7f4ff";
+          backgroundCtx.font = "600 22px 'Space Grotesk', sans-serif";
+          backgroundCtx.fillText("press space or tap to run", 330, 108);
+
+          backgroundCtx.fillStyle = "#7cffe1";
+          backgroundCtx.font = "12px 'DM Mono', monospace";
+          backgroundCtx.fillText(`best score: ${score}`, 500, 138);
+        }
+
+        backgroundRunner = requestAnimationFrame(loop);
+      }
+
+      const handleJump = event => {
+        const key = event.key || "";
+        if (key === " " || key === "ArrowUp" || key === "w" || key === "W") {
+          event.preventDefault();
+          jump();
+        }
+      };
+
+      document.addEventListener("keydown", handleJump);
+      backgroundCanvas.addEventListener("pointerdown", jump);
+      reset();
+      backgroundRunner = requestAnimationFrame(loop);
+      window.addEventListener("beforeunload", () => { if (backgroundRunner) cancelAnimationFrame(backgroundRunner); document.removeEventListener("keydown", handleJump); backgroundCanvas.removeEventListener("pointerdown", jump); }, { once: true });
+    }
+
+    startBackgroundRunner();
+
     const games = [
       { id: "nitro", name: "Nitro Run", genre: "Racing", category: "Action", icon: "🏎️", bg: "#293a35", tag: "ENDLESS RACE", desc: "Dodge traffic. Chase the high score." },
       { id: "duel", name: "Shadow Duel", genre: "Fighting", category: "Action", icon: "🥊", bg: "#3d2929", tag: "1P VS CPU", desc: "Pick your move. Outsmart your rival." },
       { id: "snake", name: "Snack Snake", genre: "Arcade", category: "Arcade", icon: "🐍", bg: "#2c3826", tag: "CLASSIC", desc: "Get snacks. Grow big. Don't bite back." },
+      { id: "survivor", name: "Void Survivor", genre: "Arena survival", category: "Action", icon: "🌌", bg: "#392451", tag: "NEW · BOSS RUSH", desc: "Survive endless waves, level up, and take down the void boss." },
       { id: "blaster", name: "Star Blaster", genre: "Shooter", category: "Action", icon: "🚀", bg: "#252943", tag: "HIGH SCORE", desc: "Clear the sky, one wave at a time." },
       { id: "pong", name: "Pocket Pong", genre: "Arcade", category: "Arcade", icon: "🏓", bg: "#263c39", tag: "VS CPU", desc: "A tiny court. A very serious rally." },
       { id: "bricks", name: "Brick Breaker", genre: "Arcade", category: "Arcade", icon: "🧱", bg: "#3a2f28", tag: "LEVEL 01", desc: "Keep the ball alive. Clear the wall." },
@@ -383,8 +723,111 @@
       { id: "2048", name: "Merge Up", genre: "Number puzzle", category: "Puzzle", icon: "🔢", bg: "#403925", tag: "2048", desc: "Slide and merge your way to 2048." },
       { id: "reflex", name: "Ready, Set, Tap", genre: "Reflex", category: "Quick play", icon: "⚡", bg: "#3f3028", tag: "REACTION TEST", desc: "Wait for green. Tap as fast as you can." },
       { id: "rps", name: "Rock Paper Scissors", genre: "Quick play", category: "Quick play", icon: "✊", bg: "#303a42", tag: "BEST OF LUCK", desc: "One classic. You vs. the house." },
-      { id: "word", name: "Word Sprint", genre: "Typing", category: "Quick play", icon: "⌨️", bg: "#30352c", tag: "30 SECONDS", desc: "Type the words. Beat the clock." }
+      { id: "word", name: "Word Sprint", genre: "Typing", category: "Quick play", icon: "⌨️", bg: "#30352c", tag: "30 SECONDS", desc: "Type the words. Beat the clock." },
+      { id: "guess", name: "Guess Quest", genre: "Number guessing", category: "Quick play", icon: "🎯", bg: "#2f433a", tag: "7 CHANCES", desc: "Find the hidden number before your guesses run out." }
     ];
+    document.getElementById("top-game-count").textContent = games.length;
+    document.getElementById("game-total").textContent = games.length;
+    document.getElementById("footer-game-count").textContent = games.length;
+    document.querySelectorAll("[data-category-count]").forEach(count => {
+      const category = count.dataset.categoryCount;
+      count.textContent = category === "All" ? games.length : games.filter(game => game.category === category).length;
+    });
+
+    const dailyChallengeTitle = document.getElementById("daily-challenge-title");
+    const dailyChallengeDate = document.getElementById("daily-challenge-date");
+    const dailyChallengeDescription = document.getElementById("daily-challenge-description");
+    const dailyChallengeButton = document.getElementById("daily-challenge-button");
+    const dailyChallengeStreak = document.getElementById("daily-challenge-streak");
+    const dailyChallengeStatus = document.getElementById("daily-challenge-status");
+    const dailyProgressStorageKey = "playroom-daily-progress";
+    let dailyProgressSaveWarning = false;
+    const localDateKey = date =>
+      `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+    function getDailyChallenge(date = new Date()) {
+      const dayIndex = Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86400000);
+      return games[((dayIndex % games.length) + games.length) % games.length];
+    }
+
+    function readDailyProgress() {
+      try {
+        const progress = JSON.parse(localStorage.getItem(dailyProgressStorageKey) || "{}");
+        return {
+          lastCompletedDate: typeof progress.lastCompletedDate === "string" ? progress.lastCompletedDate : "",
+          streak: Number.isSafeInteger(progress.streak) && progress.streak > 0 ? progress.streak : 0,
+          bestStreak: Number.isSafeInteger(progress.bestStreak) && progress.bestStreak > 0 ? progress.bestStreak : 0,
+          completedChallenges: Number.isSafeInteger(progress.completedChallenges) && progress.completedChallenges > 0
+            ? progress.completedChallenges : 0
+        };
+      } catch {
+        return { lastCompletedDate: "", streak: 0, bestStreak: 0, completedChallenges: 0 };
+      }
+    }
+
+    let dailyChallenge = getDailyChallenge();
+    let dailyChallengeToday = localDateKey(new Date());
+    let dailyProgress = readDailyProgress();
+
+    function renderDailyChallenge() {
+      const completedToday = dailyProgress.lastCompletedDate === dailyChallengeToday;
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const currentStreak = completedToday || dailyProgress.lastCompletedDate === localDateKey(yesterday)
+        ? dailyProgress.streak : 0;
+      dailyChallengeDate.textContent = `✦ TODAY'S CHALLENGE · ${new Intl.DateTimeFormat(undefined, {
+        weekday: "short", month: "short", day: "numeric"
+      }).format(new Date())}`;
+      dailyChallengeTitle.textContent = `${dailyChallenge.icon} ${dailyChallenge.name} daily run`;
+      dailyChallengeDescription.textContent = `Play ${dailyChallenge.name} and finish a round today. A new game arrives tomorrow.`;
+      dailyChallengeButton.dataset.launchGame = dailyChallenge.id;
+      dailyChallengeButton.textContent = completedToday ? "Play again · streak secured ✓" : "Play today's challenge  ↗";
+      dailyChallengeStreak.textContent = `🔥 ${currentStreak} day${currentStreak === 1 ? "" : "s"} · best ${dailyProgress.bestStreak}`;
+      dailyChallengeStatus.textContent = completedToday
+        ? dailyProgressSaveWarning
+          ? "QUEST COMPLETE · THIS BROWSER COULD NOT SAVE YOUR STREAK."
+          : `TODAY'S QUEST COMPLETE · ${dailyProgress.completedChallenges} TOTAL COMPLETED`
+        : "FINISH A ROUND TO COMPLETE TODAY'S QUEST";
+    }
+
+    function completeDailyChallenge(gameId) {
+      if (gameId !== dailyChallenge.id || dailyProgress.lastCompletedDate === dailyChallengeToday) return;
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const streak = dailyProgress.lastCompletedDate === localDateKey(yesterday)
+        ? dailyProgress.streak + 1 : 1;
+      const nextProgress = {
+        lastCompletedDate: dailyChallengeToday,
+        streak,
+        bestStreak: Math.max(dailyProgress.bestStreak, streak),
+        completedChallenges: dailyProgress.completedChallenges + 1
+      };
+      dailyProgress = nextProgress;
+      try {
+        localStorage.setItem(dailyProgressStorageKey, JSON.stringify(nextProgress));
+        dailyProgressSaveWarning = false;
+      } catch {
+        dailyProgressSaveWarning = true;
+      }
+      renderDailyChallenge();
+    }
+
+    renderDailyChallenge();
+    window.addEventListener("storage", event => {
+      if (event.key === dailyProgressStorageKey) {
+        dailyProgress = readDailyProgress();
+        renderDailyChallenge();
+      }
+    });
+    setInterval(() => {
+      const today = localDateKey(new Date());
+      if (today !== dailyChallengeToday) {
+        dailyChallengeToday = today;
+        dailyChallenge = getDailyChallenge();
+      }
+      renderDailyChallenge();
+    }, 60_000);
 
     const grid = document.getElementById("game-grid");
     const search = document.getElementById("search");
@@ -440,7 +883,7 @@
         return `
         <article class="game-card" data-game="${game.id}">
           <div class="game-art" style="--art-bg:${game.bg}">
-            <span class="game-number">${String(games.indexOf(game) + 1).padStart(2, "0")} / 12</span><span class="art-tag">${game.tag}</span>
+            <span class="game-number">${String(games.indexOf(game) + 1).padStart(2, "0")} / ${games.length}</span><span class="art-tag">${game.tag}</span>
             <button class="favorite-button" type="button" data-favorite="${game.id}" aria-label="${isFavorite ? "Remove " + game.name + " from" : "Add " + game.name + " to"} favorites" aria-pressed="${isFavorite}">${isFavorite ? "♥" : "♡"}</button>
             <span class="art-icon" aria-hidden="true">${game.icon}</span>
           </div>
@@ -554,6 +997,7 @@
     }
 
     async function recordScore(gameId, score) {
+      completeDailyChallenge(gameId);
       if (!scoreServerAvailable) {
         leaderboardStatus.textContent = "START run.bat TO SAVE YOUR SCORE WITH PYTHON.";
         return;
@@ -636,7 +1080,7 @@
       document.body.classList.add("game-open");
       document.querySelector(".shell").inert = true;
       const stage = document.getElementById("game-stage");
-      const runners = { nitro: startRacer, duel: startDuel, snake: startSnake, blaster: startBlaster, pong: startPong, bricks: startBricks, tic: startTic, memory: startMemory, "2048": start2048, reflex: startReflex, rps: startRps, word: startWord };
+      const runners = { nitro: startRacer, duel: startDuel, snake: startSnake, survivor: startSurvivor, blaster: startBlaster, pong: startPong, bricks: startBricks, tic: startTic, memory: startMemory, "2048": start2048, reflex: startReflex, rps: startRps, word: startWord, guess: startGuess };
       cleanupGame = runners[id](stage) || (() => {});
       document.getElementById("close-game").focus();
     }
@@ -805,6 +1249,446 @@
       document.addEventListener("keydown", onKey); row.append(button("Start snake", reset, true)); status("READY TO PLAY");
       addDirectionalControls(stage, turn, "Snake movement controls");
       return () => { running = false; clearInterval(timer); document.removeEventListener("keydown", onKey); };
+    }
+
+    function startSurvivor(stage) {
+      const width = 720, height = 450;
+      const arena = document.createElement("div");
+      arena.className = "survivor-arena";
+      stage.appendChild(arena);
+      const [canvas, ctx] = makeCanvas(arena, width, height);
+      canvas.setAttribute("aria-label", "Void Survivor arena. Move with WASD or the arrow keys.");
+      instruction(stage, "WASD / arrows to move · auto-fire targets nearby enemies · survive and collect the violet shards");
+
+      const controlPad = document.createElement("div");
+      controlPad.className = "touch-controls survivor-controls";
+      controlPad.setAttribute("role", "group");
+      controlPad.setAttribute("aria-label", "Movement controls");
+      const directions = [
+        ["", "", "control-spacer"], ["↑", "ArrowUp"], [ "", "", "control-spacer"],
+        ["←", "ArrowLeft"], ["↓", "ArrowDown"], ["→", "ArrowRight"]
+      ];
+      directions.forEach(([symbol, key, extraClass], index) => {
+        const control = document.createElement("button");
+        control.type = "button";
+        control.className = extraClass || "";
+        control.textContent = symbol;
+        if (key) {
+          control.setAttribute("aria-label", `Move ${key.replace("Arrow", "").toLowerCase()}`);
+          control.addEventListener("pointerdown", event => {
+            event.preventDefault();
+            keys.add(key);
+            control.classList.add("pressed");
+            control.setPointerCapture(event.pointerId);
+          });
+          const release = () => { keys.delete(key); control.classList.remove("pressed"); };
+          control.addEventListener("pointerup", release);
+          control.addEventListener("pointercancel", release);
+          control.addEventListener("lostpointercapture", release);
+        } else {
+          control.setAttribute("aria-hidden", "true");
+          control.tabIndex = -1;
+        }
+        control.style.gridColumn = String(index % 3 + 1);
+        control.style.gridRow = String(Math.floor(index / 3) + 1);
+        controlPad.appendChild(control);
+      });
+      stage.appendChild(controlPad);
+
+      const row = actionRow(stage);
+      const keys = new Set();
+      const upgrades = [
+        { id: "damage", icon: "✦", name: "Prism rounds", detail: "Weapon damage +3", apply: player => { player.damage += 3; } },
+        { id: "rate", icon: "⚡", name: "Rapid pulse", detail: "Fire faster", apply: player => { player.fireRate = Math.max(.13, player.fireRate - .065); } },
+        { id: "speed", icon: "➤", name: "Phase boots", detail: "Movement speed +24", apply: player => { player.speed += 24; } },
+        { id: "vitality", icon: "♥", name: "Nova core", detail: "Restore 25 health and raise max health by 25", apply: player => { player.maxHealth += 25; player.health = Math.min(player.maxHealth, player.health + 25); } },
+        { id: "magnet", icon: "◉", name: "Shard magnet", detail: "Collect experience from farther away", apply: player => { player.magnet += 45; } }
+      ];
+      let player, enemies, bullets, hostileShots, shards, particles;
+      let running = false, ended = false, choosing = false, started = false, frame = 0, last = 0;
+      let elapsed = 0, spawnTimer = 0, fireTimer = 0, invulnerable = 0;
+      let score = 0, kills = 0, level = 1, xp = 0, nextXp = 30, bosses = 0, nextBossAt = 28;
+      let statusTimer = 0;
+      player = { x: width / 2, y: height / 2, radius: 13, health: 130, maxHealth: 130, speed: 205, damage: 12, fireRate: .43, magnet: 140 };
+      enemies = []; bullets = []; hostileShots = []; shards = []; particles = [];
+      const pauseButton = button("Pause", togglePause);
+      const startButton = button("Start the run", reset, true);
+      row.append(startButton);
+
+      function reset() {
+        cancelAnimationFrame(frame);
+        player = { x: width / 2, y: height / 2, radius: 13, health: 130, maxHealth: 130, speed: 205, damage: 12, fireRate: .43, magnet: 140 };
+        enemies = []; bullets = []; hostileShots = []; shards = []; particles = [];
+        elapsed = 0; spawnTimer = 0; fireTimer = 0; invulnerable = 0;
+        score = 0; kills = 0; level = 1; xp = 0; nextXp = 30; bosses = 0; nextBossAt = 28;
+        statusTimer = 0; ended = false; choosing = false; running = true; last = 0;
+        started = true;
+        row.replaceChildren(pauseButton);
+        status("WAVE 01 · COLLECT SHARDS TO LEVEL UP");
+        frame = requestAnimationFrame(loop);
+      }
+
+      function togglePause() {
+        if (!started || ended || choosing) return;
+        running = !running;
+        keys.clear();
+        if (running) {
+          last = 0;
+          pauseButton.textContent = "Pause";
+          status("RUN RESUMED · HOLD YOUR GROUND");
+          frame = requestAnimationFrame(loop);
+        } else {
+          cancelAnimationFrame(frame);
+          pauseButton.textContent = "Resume";
+          status("RUN PAUSED");
+          draw();
+        }
+      }
+
+      function spawnEnemy(isBoss) {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 320 + Math.random() * 110;
+        const x = Math.max(18, Math.min(width - 18, player.x + Math.cos(angle) * distance));
+        const y = Math.max(18, Math.min(height - 18, player.y + Math.sin(angle) * distance));
+        if (isBoss) {
+          enemies.push({ x, y, radius: 25, health: 300, maxHealth: 300, speed: 34, damage: 20, boss: true, fireTimer: 1.1 });
+          status("BOSS SIGNAL · THE VOID TITAN HAS ARRIVED");
+          return;
+        }
+        const roll = Math.random();
+        const enemy = elapsed > 24 && roll > .78
+          ? { radius: 9, health: 15, speed: 94, damage: 5, color: "#ff75ac", value: 3 }
+          : elapsed > 12 && roll > .57
+            ? { radius: 15, health: 40, speed: 29, damage: 12, color: "#ffaf66", value: 7 }
+            : { radius: 11, health: 22, speed: 48, damage: 8, color: "#bd77ff", value: 4 };
+        enemies.push({ x, y, ...enemy, maxHealth: enemy.health, boss: false });
+      }
+
+      function burst(x, y, color, amount) {
+        for (let i = 0; i < amount && particles.length < 100; i++) {
+          const angle = Math.random() * Math.PI * 2, speed = 35 + Math.random() * 125;
+          particles.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, life: .25 + Math.random() * .45, color });
+        }
+      }
+
+      function beginUpgrade() {
+        if (choosing || xp < nextXp) return;
+        xp -= nextXp;
+        nextXp = Math.round(nextXp * 1.34);
+        level++;
+        choosing = true;
+        running = false;
+        cancelAnimationFrame(frame);
+        const panel = document.createElement("section");
+        panel.className = "survivor-upgrades";
+        panel.setAttribute("aria-label", "Choose a level-up upgrade");
+        const heading = document.createElement("h3");
+        heading.textContent = `LEVEL ${level} · CHOOSE A POWER`;
+        const caption = document.createElement("p");
+        caption.textContent = "THE ARENA IS PAUSED WHILE YOU DECIDE";
+        panel.append(heading, caption);
+        [...upgrades].sort(() => Math.random() - .5).slice(0, 3).forEach(upgrade => {
+          const choice = document.createElement("button");
+          choice.type = "button";
+          choice.className = "upgrade-choice";
+          const icon = document.createElement("span");
+          icon.className = "upgrade-icon";
+          icon.textContent = upgrade.icon;
+          const copy = document.createElement("span");
+          const name = document.createElement("strong");
+          name.textContent = upgrade.name;
+          const detail = document.createElement("small");
+          detail.textContent = upgrade.detail;
+          copy.append(name, detail);
+          choice.append(icon, copy);
+          choice.addEventListener("click", () => {
+            upgrade.apply(player);
+            panel.remove();
+            choosing = false;
+            pauseButton.textContent = "Pause";
+            status(`${upgrade.name.toUpperCase()} ACTIVATED · LEVEL ${level}`);
+            if (xp >= nextXp) beginUpgrade();
+            else {
+              running = true;
+              last = 0;
+              frame = requestAnimationFrame(loop);
+            }
+          });
+          panel.appendChild(choice);
+        });
+        arena.appendChild(panel);
+        panel.querySelector("button")?.focus();
+        status(`LEVEL ${level} · CHOOSE AN UPGRADE`);
+      }
+
+      function endRun() {
+        if (ended) return;
+        ended = true;
+        running = false;
+        cancelAnimationFrame(frame);
+        const finalScore = Math.min(1_000_000, Math.floor(elapsed * 10 + kills * 50 + level * 250 + bosses * 1000));
+        status(`RUN OVER · ${Math.floor(elapsed / 60)}:${String(Math.floor(elapsed % 60)).padStart(2, "0")} · ${kills} KILLS · ${finalScore.toLocaleString()} PTS`);
+        recordScore("survivor", finalScore);
+        row.replaceChildren(button("Run it back", reset, true));
+        draw();
+      }
+
+      function update(dt) {
+        elapsed += dt;
+        invulnerable = Math.max(0, invulnerable - dt);
+        fireTimer -= dt;
+        spawnTimer += dt;
+        statusTimer += dt;
+        if (statusTimer > 1) {
+          statusTimer = 0;
+          status(`WAVE ${String(Math.floor(elapsed / 30) + 1).padStart(2, "0")} · ${Math.floor(elapsed / 60)}:${String(Math.floor(elapsed % 60)).padStart(2, "0")} · KILLS ${kills} · LV ${level} · XP ${xp}/${nextXp}`);
+        }
+
+        const moveX = Number(keys.has("ArrowRight") || keys.has("d")) - Number(keys.has("ArrowLeft") || keys.has("a"));
+        const moveY = Number(keys.has("ArrowDown") || keys.has("s")) - Number(keys.has("ArrowUp") || keys.has("w"));
+        const moveLength = Math.hypot(moveX, moveY) || 1;
+        player.x = Math.max(player.radius, Math.min(width - player.radius, player.x + moveX / moveLength * player.speed * dt));
+        player.y = Math.max(player.radius, Math.min(height - player.radius, player.y + moveY / moveLength * player.speed * dt));
+
+        const spawnEvery = Math.max(.24, .82 - elapsed * .0035);
+        while (spawnTimer >= spawnEvery && enemies.length < 85) {
+          spawnTimer -= spawnEvery;
+          spawnEnemy(false);
+        }
+        if (elapsed >= nextBossAt && !enemies.some(enemy => enemy.boss)) {
+          spawnEnemy(true);
+          nextBossAt = elapsed + 58;
+        }
+
+        if (fireTimer <= 0 && enemies.length) {
+          let target = null, nearest = 560 * 560;
+          enemies.forEach(enemy => {
+            const dx = enemy.x - player.x, dy = enemy.y - player.y, distance = dx * dx + dy * dy;
+            if (distance < nearest) { target = enemy; nearest = distance; }
+          });
+          if (target) {
+            const angle = Math.atan2(target.y - player.y, target.x - player.x);
+            const boltSpeed = 450;
+            bullets.push({ x: player.x, y: player.y, vx: Math.cos(angle) * boltSpeed, vy: Math.sin(angle) * boltSpeed, damage: player.damage, life: 1.15 });
+            fireTimer = player.fireRate;
+          }
+        }
+
+        enemies.forEach(enemy => {
+          const dx = player.x - enemy.x, dy = player.y - enemy.y, distance = Math.hypot(dx, dy) || 1;
+          enemy.x += dx / distance * enemy.speed * dt;
+          enemy.y += dy / distance * enemy.speed * dt;
+          if (enemy.boss) {
+            enemy.fireTimer -= dt;
+            if (enemy.fireTimer <= 0 && hostileShots.length < 24) {
+              const angle = Math.atan2(player.y - enemy.y, player.x - enemy.x);
+              hostileShots.push({ x: enemy.x, y: enemy.y, vx: Math.cos(angle) * 170, vy: Math.sin(angle) * 170, life: 4 });
+              enemy.fireTimer = 1.35;
+            }
+          }
+          if (distance < player.radius + enemy.radius && invulnerable <= 0) {
+            player.health -= enemy.damage;
+            invulnerable = .78;
+            const push = player.radius + enemy.radius - distance + 8;
+            player.x = Math.max(player.radius, Math.min(width - player.radius, player.x + dx / distance * push));
+            player.y = Math.max(player.radius, Math.min(height - player.radius, player.y + dy / distance * push));
+            burst(player.x, player.y, "#ff6d86", 9);
+          }
+        });
+
+        bullets.forEach(bullet => {
+          bullet.x += bullet.vx * dt; bullet.y += bullet.vy * dt; bullet.life -= dt;
+          const hit = enemies.find(enemy => !enemy.dead && Math.hypot(enemy.x - bullet.x, enemy.y - bullet.y) < enemy.radius + 5);
+          if (hit) {
+            hit.health -= bullet.damage;
+            bullet.life = 0;
+            burst(bullet.x, bullet.y, hit.boss ? "#ff76e1" : "#c89aff", 3);
+            if (hit.health <= 0) {
+              hit.dead = true;
+              kills++;
+              score += hit.boss ? 250 : hit.value * 10;
+              shards.push({ x: hit.x, y: hit.y, value: hit.boss ? 24 : hit.value, color: hit.boss ? "#ff72dc" : "#9b6aff" });
+              burst(hit.x, hit.y, hit.boss ? "#ff72dc" : hit.color, hit.boss ? 24 : 10);
+              if (hit.boss) { bosses++; status("VOID TITAN DEFEATED · SHARDS INCOMING"); }
+            }
+          }
+        });
+        bullets = bullets.filter(bullet => bullet.life > 0 && bullet.x > -10 && bullet.x < width + 10 && bullet.y > -10 && bullet.y < height + 10);
+        enemies = enemies.filter(enemy => !enemy.dead);
+
+        hostileShots.forEach(shot => {
+          shot.x += shot.vx * dt; shot.y += shot.vy * dt; shot.life -= dt;
+          if (invulnerable <= 0 && Math.hypot(shot.x - player.x, shot.y - player.y) < player.radius + 5) {
+            shot.life = 0;
+            player.health -= 13;
+            invulnerable = .78;
+            burst(player.x, player.y, "#ff6d86", 8);
+          }
+        });
+        hostileShots = hostileShots.filter(shot => shot.life > 0 && shot.x > -20 && shot.x < width + 20 && shot.y > -20 && shot.y < height + 20);
+
+        shards.forEach(shard => {
+          const dx = player.x - shard.x, dy = player.y - shard.y, distance = Math.hypot(dx, dy) || 1;
+          const pickupRange = player.radius + 10;
+          if (distance <= pickupRange) {
+            shard.collected = true;
+            xp += shard.value;
+            score += shard.value * 5;
+          } else if (distance < player.magnet + 180) {
+            const step = Math.min(distance - pickupRange, 420 * dt);
+            shard.x += dx / distance * step;
+            shard.y += dy / distance * step;
+          }
+        });
+        shards = shards.filter(shard => !shard.collected);
+        particles.forEach(particle => {
+          particle.x += particle.vx * dt; particle.y += particle.vy * dt;
+          particle.vx *= .97; particle.vy *= .97; particle.life -= dt;
+        });
+        particles = particles.filter(particle => particle.life > 0);
+
+        if (player.health <= 0) { endRun(); return; }
+        if (xp >= nextXp) beginUpgrade();
+      }
+
+      function draw() {
+        ctx.fillStyle = "#100d19";
+        ctx.fillRect(0, 0, width, height);
+        ctx.strokeStyle = "#9c6acd16";
+        ctx.lineWidth = 1;
+        const gridOffset = (elapsed * 14) % 40;
+        for (let x = 0; x <= width; x += 40) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+        }
+        for (let y = -40 + gridOffset; y <= height; y += 40) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
+        }
+        for (let i = 0; i < 48; i++) {
+          const x = (i * 193 + 37) % width;
+          const y = (i * 107 + 31 - elapsed * (7 + i % 9) % height + height) % height;
+          ctx.fillStyle = i % 3 ? "#d9b8ff70" : "#ff82d760";
+          ctx.fillRect(x, y, i % 5 === 0 ? 2 : 1, i % 5 === 0 ? 2 : 1);
+        }
+
+        shards.forEach(shard => {
+          ctx.save(); ctx.translate(shard.x, shard.y); ctx.rotate(Math.PI / 4 + elapsed * 1.7);
+          ctx.shadowColor = shard.color; ctx.shadowBlur = 12; ctx.fillStyle = shard.color;
+          ctx.fillRect(-5, -5, 10, 10); ctx.restore();
+        });
+        bullets.forEach(bullet => {
+          ctx.shadowColor = "#e3a8ff"; ctx.shadowBlur = 12; ctx.fillStyle = "#f4d2ff";
+          ctx.beginPath(); ctx.arc(bullet.x, bullet.y, 4, 0, Math.PI * 2); ctx.fill();
+        });
+        hostileShots.forEach(shot => {
+          ctx.shadowColor = "#ff557b"; ctx.shadowBlur = 13; ctx.fillStyle = "#ff8193";
+          ctx.beginPath(); ctx.arc(shot.x, shot.y, 5, 0, Math.PI * 2); ctx.fill();
+        });
+        enemies.forEach(enemy => {
+          ctx.save(); ctx.shadowColor = enemy.boss ? "#f04ddd" : enemy.color; ctx.shadowBlur = enemy.boss ? 22 : 12;
+          ctx.fillStyle = enemy.boss ? "#bc42cb" : enemy.color;
+          ctx.beginPath();
+          if (enemy.boss) {
+            ctx.moveTo(enemy.x, enemy.y - enemy.radius); ctx.lineTo(enemy.x + enemy.radius, enemy.y);
+            ctx.lineTo(enemy.x, enemy.y + enemy.radius); ctx.lineTo(enemy.x - enemy.radius, enemy.y);
+            ctx.closePath();
+          } else ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2);
+          ctx.fill(); ctx.restore();
+          ctx.fillStyle = "#fff4ff";
+          ctx.beginPath(); ctx.arc(enemy.x - enemy.radius * .3, enemy.y - 2, enemy.boss ? 3 : 2, 0, Math.PI * 2); ctx.fill();
+          ctx.beginPath(); ctx.arc(enemy.x + enemy.radius * .3, enemy.y - 2, enemy.boss ? 3 : 2, 0, Math.PI * 2); ctx.fill();
+          if (enemy.boss || enemy.health < enemy.maxHealth) {
+            const barWidth = enemy.boss ? 54 : enemy.radius * 1.7;
+            ctx.fillStyle = "#291b34"; ctx.fillRect(enemy.x - barWidth / 2, enemy.y - enemy.radius - 9, barWidth, 3);
+            ctx.fillStyle = enemy.boss ? "#ff78df" : "#f0acff";
+            ctx.fillRect(enemy.x - barWidth / 2, enemy.y - enemy.radius - 9, barWidth * Math.max(0, enemy.health / enemy.maxHealth), 3);
+          }
+        });
+        particles.forEach(particle => {
+          ctx.globalAlpha = Math.min(1, particle.life * 2);
+          ctx.fillStyle = particle.color; ctx.fillRect(particle.x - 2, particle.y - 2, 4, 4);
+        });
+        ctx.globalAlpha = 1;
+
+        if (invulnerable <= 0 || Math.floor(invulnerable * 16) % 2 === 0) {
+          ctx.save(); ctx.shadowColor = "#d6a1ff"; ctx.shadowBlur = 22;
+          ctx.fillStyle = "#f4dcff"; ctx.beginPath(); ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2); ctx.fill();
+          ctx.shadowBlur = 0; ctx.fillStyle = "#9e5ad1"; ctx.beginPath(); ctx.arc(player.x, player.y, 6, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+        }
+
+        ctx.fillStyle = "#170f24dd"; ctx.fillRect(0, 0, width, 54);
+        ctx.fillStyle = "#f5efff"; ctx.font = "bold 13px 'DM Mono', monospace"; ctx.fillText(`LV ${level}`, 17, 22);
+        ctx.fillStyle = "#b8a8c6"; ctx.font = "10px 'DM Mono', monospace"; ctx.fillText(`${kills} KILLS`, 17, 40);
+        ctx.fillStyle = "#36263f"; ctx.fillRect(86, 16, 160, 9);
+        ctx.fillStyle = "#bc74f0"; ctx.fillRect(86, 16, 160 * Math.min(1, xp / nextXp), 9);
+        ctx.fillStyle = "#cab7d8"; ctx.font = "9px 'DM Mono', monospace"; ctx.fillText(`${xp} / ${nextXp} XP`, 86, 40);
+        ctx.fillStyle = "#36202d"; ctx.fillRect(width - 162, 16, 144, 9);
+        ctx.fillStyle = player.health > player.maxHealth * .3 ? "#ff709f" : "#ff445d";
+        ctx.fillRect(width - 162, 16, 144 * Math.max(0, player.health / player.maxHealth), 9);
+        ctx.fillStyle = "#edcfdb"; ctx.font = "9px 'DM Mono', monospace"; ctx.fillText(`HP ${Math.max(0, Math.ceil(player.health))}/${player.maxHealth}`, width - 162, 40);
+        ctx.textAlign = "center"; ctx.fillStyle = "#e9caff"; ctx.font = "10px 'DM Mono', monospace";
+        ctx.fillText(`${Math.floor(elapsed / 60)}:${String(Math.floor(elapsed % 60)).padStart(2, "0")}  ·  ${score.toLocaleString()} PTS`, width / 2, 24);
+        const boss = enemies.find(enemy => enemy.boss);
+        if (boss) {
+          ctx.fillStyle = "#401c45"; ctx.fillRect(width / 2 - 115, 36, 230, 5);
+          ctx.fillStyle = "#fa77e2"; ctx.fillRect(width / 2 - 115, 36, 230 * Math.max(0, boss.health / boss.maxHealth), 5);
+          ctx.fillStyle = "#f5b5f0"; ctx.font = "8px 'DM Mono', monospace"; ctx.fillText("VOID TITAN", width / 2, 51);
+        }
+        ctx.textAlign = "start";
+
+        if (!started) {
+          ctx.fillStyle = "#0e0914a8"; ctx.fillRect(0, 54, width, height - 54);
+          ctx.textAlign = "center"; ctx.fillStyle = "#f6e8ff"; ctx.font = "bold 34px 'Space Grotesk', sans-serif";
+          ctx.fillText("VOID SURVIVOR", width / 2, height / 2 - 14);
+          ctx.fillStyle = "#d1b3e8"; ctx.font = "12px 'DM Mono', monospace";
+          ctx.fillText("WAVES · UPGRADES · BOSS FIGHTS", width / 2, height / 2 + 17);
+          ctx.textAlign = "start";
+        } else if (!running && ended) {
+          ctx.fillStyle = "#0e0914ba"; ctx.fillRect(0, 54, width, height - 54);
+          ctx.textAlign = "center"; ctx.fillStyle = "#ff91aa"; ctx.font = "bold 34px 'Space Grotesk', sans-serif";
+          ctx.fillText("RUN OVER", width / 2, height / 2);
+          ctx.fillStyle = "#efdbfa"; ctx.font = "12px 'DM Mono', monospace";
+          ctx.fillText(`${kills} ENEMIES · ${level} LEVELS · ${bosses} BOSSES`, width / 2, height / 2 + 26);
+          ctx.textAlign = "start";
+        } else if (!running && !choosing) {
+          ctx.fillStyle = "#0e091488"; ctx.fillRect(0, 54, width, height - 54);
+          ctx.textAlign = "center"; ctx.fillStyle = "#f6e8ff"; ctx.font = "bold 30px 'Space Grotesk', sans-serif";
+          ctx.fillText("PAUSED", width / 2, height / 2);
+          ctx.textAlign = "start";
+        }
+      }
+
+      function loop(time) {
+        if (!running) return;
+        const dt = Math.min((time - (last || time)) / 1000, .05);
+        last = time;
+        update(dt);
+        draw();
+        if (running) frame = requestAnimationFrame(loop);
+      }
+
+      function onKeyDown(event) {
+        const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+        if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "w", "a", "s", "d"].includes(key)) {
+          event.preventDefault();
+          keys.add(key);
+        } else if (key.toLowerCase() === "p" && !event.repeat) togglePause();
+      }
+      function onKeyUp(event) {
+        const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+        keys.delete(key);
+      }
+      document.addEventListener("keydown", onKeyDown);
+      document.addEventListener("keyup", onKeyUp);
+      canvas.addEventListener("pointerdown", event => canvas.setPointerCapture(event.pointerId));
+      draw();
+      status("READY · SURVIVE THE VOID");
+      return () => {
+        running = false;
+        cancelAnimationFrame(frame);
+        keys.clear();
+        document.removeEventListener("keydown", onKeyDown);
+        document.removeEventListener("keyup", onKeyUp);
+      };
     }
 
     function startBlaster(stage) {
@@ -1035,6 +1919,86 @@
         score.textContent = `YOU ${you} — ${house} HOUSE`; status(`${outcome} · ${choice.toUpperCase()} VS ${opponent.toUpperCase()}`);
       })));
       status("MAKE YOUR MOVE");
+      return () => {};
+    }
+
+    function startGuess(stage) {
+      const prompt = document.createElement("div");
+      prompt.className = "scoreline";
+      prompt.textContent = "7 guesses remaining";
+      const input = document.createElement("input");
+      input.className = "word-input";
+      input.type = "number";
+      input.min = "1";
+      input.max = "100";
+      input.placeholder = "Pick a number from 1 to 100";
+      input.setAttribute("aria-label", "Guess a number between 1 and 100");
+      stage.append(prompt, input);
+      const row = actionRow(stage);
+      let target = 0;
+      let attempts = 0;
+      let finished = false;
+
+      function reset() {
+        target = Math.floor(Math.random() * 100) + 1;
+        attempts = 0;
+        finished = false;
+        input.disabled = false;
+        input.value = "";
+        input.focus();
+        prompt.textContent = "7 guesses remaining";
+        status("I'VE CHOSEN A NUMBER. TAKE A GUESS.");
+        row.replaceChildren(button("Guess the number", submitGuess, true));
+      }
+
+      function submitGuess() {
+        if (finished) return;
+        const guess = Number(input.value);
+        if (!Number.isInteger(guess) || guess < 1 || guess > 100) {
+          prompt.textContent = "Enter a whole number between 1 and 100.";
+          status("INVALID GUESS");
+          input.focus();
+          return;
+        }
+
+        attempts += 1;
+        const left = 7 - attempts;
+        if (guess === target) {
+          finished = true;
+          input.disabled = true;
+          const score = left * 15 + 100;
+          prompt.textContent = `Correct! ${target} was the hidden number.`;
+          status(`BINGO! ${target} IS THE SECRET NUMBER.`);
+          recordScore("guess", score);
+          row.replaceChildren(button("Play again", reset, true));
+          return;
+        }
+
+        if (attempts >= 7) {
+          finished = true;
+          input.disabled = true;
+          prompt.textContent = `No more guesses — the number was ${target}.`;
+          status(`OUT OF CHANCES — THE NUMBER WAS ${target}.`);
+          recordScore("guess", attempts);
+          row.replaceChildren(button("Try again", reset, true));
+          return;
+        }
+
+        const clue = guess < target ? "too low" : "too high";
+        prompt.textContent = `${guess} is ${clue} · ${left} guesses left`;
+        status(`CLOSE! ${guess} IS ${clue.toUpperCase()}.`);
+        input.value = "";
+        input.focus();
+      }
+
+      input.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          submitGuess();
+        }
+      });
+
+      reset();
       return () => {};
     }
 

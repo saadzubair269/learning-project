@@ -10,7 +10,7 @@ from urllib.parse import parse_qs, urlparse
 ROOT = Path(__file__).resolve().parent
 DATABASE = ROOT / "playroom.sqlite3"
 GAMES = {
-    "nitro", "duel", "snake", "blaster", "pong", "bricks",
+    "nitro", "duel", "snake", "survivor", "blaster", "pong", "bricks",
     "tic", "memory", "2048", "reflex", "rps", "word",
 }
 MAX_BODY_SIZE = 2048
