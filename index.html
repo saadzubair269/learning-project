@@ -36,8 +36,10 @@
     }
     button, input { font: inherit; }
     button { color: inherit; }
-    .shell { max-width: 1440px; margin: auto; padding: 0 6.1%; }
+    .shell { position: relative; max-width: 1440px; margin: auto; padding: 0 6.1%; }
     .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .background-runner { position: absolute; inset: 0 0 auto 0; height: 240px; pointer-events: none; z-index: 0; opacity: .58; }
+    .background-runner canvas { display: block; width: 100%; height: 100%; }
     .skip-link { position: fixed; top: 8px; left: 8px; z-index: 8; padding: 10px 14px; transform: translateY(-160%); border-radius: 6px; background: var(--cyan); color: #10131b; font-size: 13px; font-weight: 700; }
     .skip-link:focus { transform: translateY(0); }
     .topbar {
@@ -393,20 +395,23 @@
           <a class="top-link" href="#game-shelf">Games</a>
           <a class="top-link" href="#leaderboard-heading">Score wall</a>
         </nav>
-        <div class="top-meta"><span><i class="live-dot"></i>NEON ARCADE LIVE</span><span><span id="top-game-count">13</span> GAMES</span></div>
+        <div class="top-meta"><span><i class="live-dot"></i>NEON ARCADE LIVE</span><span><span id="top-game-count">14</span> GAMES</span></div>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" title="Switch to light theme"><span aria-hidden="true">☼</span></button>
         <span class="visually-hidden" id="theme-status" role="status" aria-live="polite"></span>
       </div>
     </header>
 
     <main>
+      <div class="background-runner" aria-hidden="true">
+        <canvas id="background-runner" width="1200" height="240"></canvas>
+      </div>
       <section class="hero">
         <div class="hero-copy">
           <div class="eyebrow">YOUR LITTLE CORNER OF PLAY</div>
           <h1>Pick a<br><span>new mood.</span></h1>
           <p>13 little worlds. Zero downloads.<br>Just you, a high score, and one more round.</p>
           <div class="hero-stats">
-            <div class="stat"><strong id="game-total">13</strong><small>arcade games</small></div>
+            <div class="stat"><strong id="game-total">14</strong><small>arcade games</small></div>
             <div class="stat"><strong>∞</strong><small>rematches</small></div>
             <div class="stat"><strong>0</strong><small>downloads</small></div>
           </div>
@@ -461,18 +466,18 @@
           </div>
         </div>
         <nav class="filter-row" id="game-filters" aria-label="Filter games" role="group">
-          <button class="filter active" data-category="All" aria-pressed="true">All games <span data-category-count="All">13</span></button>
+          <button class="filter active" data-category="All" aria-pressed="true">All games <span data-category-count="All">14</span></button>
           <button class="filter" data-category="Action" aria-pressed="false">Action <span data-category-count="Action">4</span></button>
           <button class="filter" data-category="Arcade" aria-pressed="false">Arcade <span>3</span></button>
           <button class="filter" data-category="Puzzle" aria-pressed="false">Puzzle <span>3</span></button>
-          <button class="filter" data-category="Quick play" aria-pressed="false">Quick play <span>3</span></button>
+          <button class="filter" data-category="Quick play" aria-pressed="false">Quick play <span>4</span></button>
           <button class="filter" data-category="Favorites" aria-label="Show favorite games" aria-pressed="false">♥ Favorites <span id="favorite-count">0</span></button>
         </nav>
         <p class="results-line" id="results-line" aria-live="polite"></p>
         <div class="game-grid" id="game-grid"></div>
       </section>
     </main>
-    <footer><span>© PLAYROOM ARCADE</span><span>BUILT FOR THE JOY OF IT ✦</span><span>PYTHON SCORE SERVER · <span id="footer-game-count">13</span> GAMES</span></footer>
+    <footer><span>© PLAYROOM ARCADE</span><span>BUILT FOR THE JOY OF IT ✦</span><span>PYTHON SCORE SERVER · <span id="footer-game-count">14</span> GAMES</span></footer>
   </div>
 
   <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
@@ -519,6 +524,137 @@
       }
     });
 
+    const backgroundCanvas = document.getElementById("background-runner");
+    const backgroundCtx = backgroundCanvas.getContext("2d");
+    let backgroundRunner = null;
+
+    function startBackgroundRunner() {
+      if (backgroundRunner) return;
+      const groundY = 180;
+      let player = { x: 110, y: groundY - 30, w: 28, h: 30, vy: 0, onGround: true };
+      let obstacles = [];
+      let spawnTimer = 0;
+      let score = 0;
+      let started = false;
+      let last = 0;
+
+      function reset() {
+        player.y = groundY - 30;
+        player.vy = 0;
+        player.onGround = true;
+        obstacles = [];
+        spawnTimer = 0;
+        score = 0;
+        started = true;
+      }
+
+      function jump() {
+        if (!started) {
+          reset();
+          return;
+        }
+        if (player.onGround) {
+          player.vy = -8.8;
+          player.onGround = false;
+        }
+      }
+
+      function loop(timestamp) {
+        const dt = Math.min((timestamp - (last || timestamp)) / 16.67, 2);
+        last = timestamp;
+
+        backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+        backgroundCtx.fillStyle = "rgba(20, 22, 32, 0.18)";
+        backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+
+        const glow = backgroundCtx.createLinearGradient(0, 0, backgroundCanvas.width, 0);
+        glow.addColorStop(0, "rgba(124,255,225,0.08)");
+        glow.addColorStop(0.5, "rgba(192,163,255,0.12)");
+        glow.addColorStop(1, "rgba(255,112,159,0.08)");
+        backgroundCtx.fillStyle = glow;
+        backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+
+        if (started) {
+          player.vy += 0.42 * dt;
+          player.y += player.vy * dt;
+          if (player.y >= groundY - player.h) {
+            player.y = groundY - player.h;
+            player.vy = 0;
+            player.onGround = true;
+          }
+
+          spawnTimer += dt;
+          if (spawnTimer > 54) {
+            const h = 22 + Math.random() * 34;
+            obstacles.push({ x: backgroundCanvas.width + 18, y: groundY - h, w: 18 + Math.random() * 12, h });
+            spawnTimer = 0;
+          }
+
+          for (let i = obstacles.length - 1; i >= 0; i--) {
+            const obstacle = obstacles[i];
+            obstacle.x -= 5.5 * dt;
+            if (obstacle.x + obstacle.w < 0) {
+              obstacles.splice(i, 1);
+              score += 1;
+              continue;
+            }
+
+            const collisions = player.x + player.w > obstacle.x && player.x < obstacle.x + obstacle.w && player.y + player.h > obstacle.y && player.y < obstacle.y + obstacle.h;
+            if (collisions) {
+              started = false;
+              break;
+            }
+          }
+        }
+
+        backgroundCtx.fillStyle = "#11141f";
+        backgroundCtx.fillRect(0, groundY, backgroundCanvas.width, backgroundCanvas.height - groundY);
+        backgroundCtx.fillStyle = "rgba(195, 251, 108, 0.45)";
+        for (let x = -10; x < backgroundCanvas.width + 20; x += 40) {
+          backgroundCtx.fillRect(x, groundY + 12, 18, 4);
+        }
+
+        backgroundCtx.fillStyle = "#d3fa68";
+        backgroundCtx.fillRect(player.x, player.y, player.w, player.h);
+        backgroundCtx.fillStyle = "#ff9bb7";
+        obstacles.forEach(obstacle => {
+          backgroundCtx.fillRect(obstacle.x, obstacle.y, obstacle.w, obstacle.h);
+        });
+
+        backgroundCtx.fillStyle = "rgba(255,255,255,0.8)";
+        backgroundCtx.font = "12px 'DM Mono', monospace";
+        backgroundCtx.fillText(`runner ${score}`, 20, 24);
+
+        if (!started) {
+          backgroundCtx.fillStyle = "rgba(15, 16, 22, 0.75)";
+          backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+          backgroundCtx.fillStyle = "#f7f4ff";
+          backgroundCtx.font = "600 22px 'Space Grotesk', sans-serif";
+          backgroundCtx.fillText("press space or tap to run", 350, 110);
+          backgroundCtx.font = "12px 'DM Mono', monospace";
+          backgroundCtx.fillText("best score: " + score, 500, 138);
+        }
+
+        backgroundRunner = requestAnimationFrame(loop);
+      }
+
+      const handleJump = event => {
+        const key = event.key || "";
+        if (key === " " || key === "ArrowUp" || key === "w" || key === "W") {
+          event.preventDefault();
+          jump();
+        }
+      };
+
+      document.addEventListener("keydown", handleJump);
+      backgroundCanvas.addEventListener("pointerdown", jump);
+      reset();
+      backgroundRunner = requestAnimationFrame(loop);
+      window.addEventListener("beforeunload", () => { if (backgroundRunner) cancelAnimationFrame(backgroundRunner); document.removeEventListener("keydown", handleJump); backgroundCanvas.removeEventListener("pointerdown", jump); }, { once: true });
+    }
+
+    startBackgroundRunner();
+
     const games = [
       { id: "nitro", name: "Nitro Run", genre: "Racing", category: "Action", icon: "🏎️", bg: "#293a35", tag: "ENDLESS RACE", desc: "Dodge traffic. Chase the high score." },
       { id: "duel", name: "Shadow Duel", genre: "Fighting", category: "Action", icon: "🥊", bg: "#3d2929", tag: "1P VS CPU", desc: "Pick your move. Outsmart your rival." },
@@ -532,7 +668,8 @@
       { id: "2048", name: "Merge Up", genre: "Number puzzle", category: "Puzzle", icon: "🔢", bg: "#403925", tag: "2048", desc: "Slide and merge your way to 2048." },
       { id: "reflex", name: "Ready, Set, Tap", genre: "Reflex", category: "Quick play", icon: "⚡", bg: "#3f3028", tag: "REACTION TEST", desc: "Wait for green. Tap as fast as you can." },
       { id: "rps", name: "Rock Paper Scissors", genre: "Quick play", category: "Quick play", icon: "✊", bg: "#303a42", tag: "BEST OF LUCK", desc: "One classic. You vs. the house." },
-      { id: "word", name: "Word Sprint", genre: "Typing", category: "Quick play", icon: "⌨️", bg: "#30352c", tag: "30 SECONDS", desc: "Type the words. Beat the clock." }
+      { id: "word", name: "Word Sprint", genre: "Typing", category: "Quick play", icon: "⌨️", bg: "#30352c", tag: "30 SECONDS", desc: "Type the words. Beat the clock." },
+      { id: "guess", name: "Guess Quest", genre: "Number guessing", category: "Quick play", icon: "🎯", bg: "#2f433a", tag: "7 CHANCES", desc: "Find the hidden number before your guesses run out." }
     ];
     document.getElementById("top-game-count").textContent = games.length;
     document.getElementById("game-total").textContent = games.length;
@@ -888,7 +1025,7 @@
       document.body.classList.add("game-open");
       document.querySelector(".shell").inert = true;
       const stage = document.getElementById("game-stage");
-      const runners = { nitro: startRacer, duel: startDuel, snake: startSnake, survivor: startSurvivor, blaster: startBlaster, pong: startPong, bricks: startBricks, tic: startTic, memory: startMemory, "2048": start2048, reflex: startReflex, rps: startRps, word: startWord };
+      const runners = { nitro: startRacer, duel: startDuel, snake: startSnake, survivor: startSurvivor, blaster: startBlaster, pong: startPong, bricks: startBricks, tic: startTic, memory: startMemory, "2048": start2048, reflex: startReflex, rps: startRps, word: startWord, guess: startGuess };
       cleanupGame = runners[id](stage) || (() => {});
       document.getElementById("close-game").focus();
     }
@@ -1727,6 +1864,86 @@
         score.textContent = `YOU ${you} — ${house} HOUSE`; status(`${outcome} · ${choice.toUpperCase()} VS ${opponent.toUpperCase()}`);
       })));
       status("MAKE YOUR MOVE");
+      return () => {};
+    }
+
+    function startGuess(stage) {
+      const prompt = document.createElement("div");
+      prompt.className = "scoreline";
+      prompt.textContent = "7 guesses remaining";
+      const input = document.createElement("input");
+      input.className = "word-input";
+      input.type = "number";
+      input.min = "1";
+      input.max = "100";
+      input.placeholder = "Pick a number from 1 to 100";
+      input.setAttribute("aria-label", "Guess a number between 1 and 100");
+      stage.append(prompt, input);
+      const row = actionRow(stage);
+      let target = 0;
+      let attempts = 0;
+      let finished = false;
+
+      function reset() {
+        target = Math.floor(Math.random() * 100) + 1;
+        attempts = 0;
+        finished = false;
+        input.disabled = false;
+        input.value = "";
+        input.focus();
+        prompt.textContent = "7 guesses remaining";
+        status("I'VE CHOSEN A NUMBER. TAKE A GUESS.");
+        row.replaceChildren(button("Guess the number", submitGuess, true));
+      }
+
+      function submitGuess() {
+        if (finished) return;
+        const guess = Number(input.value);
+        if (!Number.isInteger(guess) || guess < 1 || guess > 100) {
+          prompt.textContent = "Enter a whole number between 1 and 100.";
+          status("INVALID GUESS");
+          input.focus();
+          return;
+        }
+
+        attempts += 1;
+        const left = 7 - attempts;
+        if (guess === target) {
+          finished = true;
+          input.disabled = true;
+          const score = left * 15 + 100;
+          prompt.textContent = `Correct! ${target} was the hidden number.`;
+          status(`BINGO! ${target} IS THE SECRET NUMBER.`);
+          recordScore("guess", score);
+          row.replaceChildren(button("Play again", reset, true));
+          return;
+        }
+
+        if (attempts >= 7) {
+          finished = true;
+          input.disabled = true;
+          prompt.textContent = `No more guesses — the number was ${target}.`;
+          status(`OUT OF CHANCES — THE NUMBER WAS ${target}.`);
+          recordScore("guess", attempts);
+          row.replaceChildren(button("Try again", reset, true));
+          return;
+        }
+
+        const clue = guess < target ? "too low" : "too high";
+        prompt.textContent = `${guess} is ${clue} · ${left} guesses left`;
+        status(`CLOSE! ${guess} IS ${clue.toUpperCase()}.`);
+        input.value = "";
+        input.focus();
+      }
+
+      input.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          submitGuess();
+        }
+      });
+
+      reset();
       return () => {};
     }
 
