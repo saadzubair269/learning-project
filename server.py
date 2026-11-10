@@ -12,6 +12,7 @@ DATABASE = ROOT / "playroom.sqlite3"
 GAMES = {
     "nitro", "duel", "snake", "blaster", "pong", "bricks",
     "tic", "memory", "2048", "reflex", "rps", "word",
+    "temple", "subway", "car4d",
 }
 MAX_BODY_SIZE = 2048
 MAX_SCORE = 1_000_000

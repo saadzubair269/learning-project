@@ -142,18 +142,6 @@
       min-width: 0;
     }
     .game-card:hover { transform: translateY(-5px); border-color: #8e75be; background: #1d1b2b; box-shadow: 0 12px 28px #08080e70, 0 0 0 1px #c0a3ff19; }
-    .upcoming-section { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
-    .upcoming-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 15px; }
-    .upcoming-heading h2 { margin: 0; font-size: 19px; letter-spacing: -.045em; }
-    .upcoming-heading p { margin: 5px 0 0; color: var(--muted); font-size: 11px; }
-    .upcoming-count, .upcoming-status { color: var(--cyan); font: 9px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
-    .upcoming-card { cursor: default; }
-    .upcoming-card:hover { transform: none; border-color: var(--line); background: linear-gradient(150deg, #191a2a, var(--panel) 64%); box-shadow: none; }
-    .upcoming-card:hover .art-icon { transform: none; }
-    .upcoming-card .art-tag { right: 12px; }
-    .upcoming-card .card-info { align-items: flex-start; }
-    .upcoming-card .card-info h3 { margin-bottom: 5px; }
-    .upcoming-card .upcoming-status { flex: 0 0 auto; margin-top: 3px; }
     .game-art {
       height: 151px; display: grid; place-items: center; overflow: hidden; position: relative;
       background: radial-gradient(ellipse at 50% 110%, #fff2 0, transparent 56%), linear-gradient(140deg, var(--art-bg, #252b21), #14131f);
@@ -303,7 +291,7 @@
           <a class="top-link" href="#game-shelf">new games</a>
           <a class="top-link" href="#leaderboard-heading">Score wall</a>
         </nav>
-        <div class="top-meta"><span><i class="live-dot"></i>NEON ARCADE LIVE</span><span>12 MINI GAMES</span></div>
+        <div class="top-meta"><span><i class="live-dot"></i>NEON ARCADE LIVE</span><span>15 MINI GAMES</span></div>
       </div>
     </header>
 
@@ -366,8 +354,8 @@
           </div>
         </div>
         <nav class="filter-row" id="game-filters" aria-label="Filter games" role="group">
-          <button class="filter active" data-category="All" aria-pressed="true">All games <span>12</span></button>
-          <button class="filter" data-category="Action" aria-pressed="false">Action <span>3</span></button>
+          <button class="filter active" data-category="All" aria-pressed="true">All games <span>15</span></button>
+          <button class="filter" data-category="Action" aria-pressed="false">Action <span>6</span></button>
           <button class="filter" data-category="Arcade" aria-pressed="false">Arcade <span>3</span></button>
           <button class="filter" data-category="Puzzle" aria-pressed="false">Puzzle <span>3</span></button>
           <button class="filter" data-category="Quick play" aria-pressed="false">Quick play <span>3</span></button>
@@ -375,38 +363,9 @@
         </nav>
         <p class="results-line" id="results-line" aria-live="polite"></p>
         <div class="game-grid" id="game-grid"></div>
-        <section class="upcoming-section" aria-labelledby="upcoming-title">
-          <div class="upcoming-heading">
-            <div><h2 id="upcoming-title">In Progress</h2><p>These games are in the works and aren't playable yet.</p></div>
-            <span class="upcoming-count">03 titles</span>
-          </div>
-          <div class="game-grid">
-            <article class="game-card upcoming-card" aria-label="Temple Run 2, in progress">
-              <div class="game-art" style="--art-bg:#443326">
-                <span class="game-number">IN PROGRESS</span><span class="art-tag">COMING SOON</span>
-                <span class="art-icon" aria-hidden="true">🏃</span>
-              </div>
-              <div class="card-info"><div class="card-main"><h3>Temple Run 2</h3><p>Endless runner</p></div><span class="upcoming-status">In Progress</span></div>
-            </article>
-            <article class="game-card upcoming-card" aria-label="Subway Surfers, in progress">
-              <div class="game-art" style="--art-bg:#29404a">
-                <span class="game-number">IN PROGRESS</span><span class="art-tag">COMING SOON</span>
-                <span class="art-icon" aria-hidden="true">🚆</span>
-              </div>
-              <div class="card-info"><div class="card-main"><h3>Subway Surfers</h3><p>Endless runner</p></div><span class="upcoming-status">In Progress</span></div>
-            </article>
-            <article class="game-card upcoming-card" aria-label="4D Car Game, in progress">
-              <div class="game-art" style="--art-bg:#34334c">
-                <span class="game-number">IN PROGRESS</span><span class="art-tag">COMING SOON</span>
-                <span class="art-icon" aria-hidden="true">🏎️</span>
-              </div>
-              <div class="card-info"><div class="card-main"><h3>4D Car Game</h3><p>Racing</p></div><span class="upcoming-status">In Progress</span></div>
-            </article>
-          </div>
-        </section>
       </section>
     </main>
-    <footer><span>© PLAYROOM ARCADE</span><span>BUILT FOR THE JOY OF IT ✦</span><span>PYTHON SCORE SERVER · 12 GAMES</span></footer>
+    <footer><span>© PLAYROOM ARCADE</span><span>BUILT FOR THE JOY OF IT ✦</span><span>PYTHON SCORE SERVER · 15 GAMES</span></footer>
   </div>
 
   <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
@@ -432,7 +391,10 @@
       { id: "2048", name: "Merge Up", genre: "Number puzzle", category: "Puzzle", icon: "🔢", bg: "#403925", tag: "2048", desc: "Slide and merge your way to 2048." },
       { id: "reflex", name: "Ready, Set, Tap", genre: "Reflex", category: "Quick play", icon: "⚡", bg: "#3f3028", tag: "REACTION TEST", desc: "Wait for green. Tap as fast as you can." },
       { id: "rps", name: "Rock Paper Scissors", genre: "Quick play", category: "Quick play", icon: "✊", bg: "#303a42", tag: "BEST OF LUCK", desc: "One classic. You vs. the house." },
-      { id: "word", name: "Word Sprint", genre: "Typing", category: "Quick play", icon: "⌨️", bg: "#30352c", tag: "30 SECONDS", desc: "Type the words. Beat the clock." }
+      { id: "word", name: "Word Sprint", genre: "Typing", category: "Quick play", icon: "⌨️", bg: "#30352c", tag: "30 SECONDS", desc: "Type the words. Beat the clock." },
+      { id: "temple", name: "Temple Run 2", genre: "Endless runner", category: "Action", icon: "🏃", bg: "#443326", tag: "JUMP · SLIDE · RUN", desc: "Race through ancient ruins, dodge hazards, and collect relics." },
+      { id: "subway", name: "Subway Surfers", genre: "Endless runner", category: "Action", icon: "🚆", bg: "#29404a", tag: "TRACK DASH", desc: "Switch tracks, jump barriers, and weave past oncoming trains." },
+      { id: "car4d", name: "4D Car Game", genre: "Racing", category: "Action", icon: "🏎️", bg: "#34334c", tag: "PERSPECTIVE RACE", desc: "Race a winding road in a perspective-view traffic challenge." }
     ];
 
     const dailyChallengeTitle = document.getElementById("daily-challenge-title");
@@ -781,7 +743,7 @@
       document.body.classList.add("game-open");
       document.querySelector(".shell").inert = true;
       const stage = document.getElementById("game-stage");
-      const runners = { nitro: startRacer, duel: startDuel, snake: startSnake, blaster: startBlaster, pong: startPong, bricks: startBricks, tic: startTic, memory: startMemory, "2048": start2048, reflex: startReflex, rps: startRps, word: startWord };
+      const runners = { nitro: startRacer, duel: startDuel, snake: startSnake, blaster: startBlaster, pong: startPong, bricks: startBricks, tic: startTic, memory: startMemory, "2048": start2048, reflex: startReflex, rps: startRps, word: startWord, temple: stage => startLaneRunner(stage, "temple"), subway: stage => startLaneRunner(stage, "subway"), car4d: startPerspectiveRacer };
       cleanupGame = runners[id](stage) || (() => {});
       document.getElementById("close-game").focus();
     }
@@ -873,6 +835,230 @@
       const row = actionRow(stage); row.append(button("Start racing", reset, true));
       instruction(stage, "On touch screens, tap left or right side of the road.");
       canvas.addEventListener("pointerdown", e => { const rect = canvas.getBoundingClientRect(); lane = e.clientX < rect.left + rect.width / 2 ? Math.max(0, lane - 1) : Math.min(2, lane + 1); });
+      status("READY WHEN YOU ARE");
+      return () => { running = false; cancelAnimationFrame(frame); document.removeEventListener("keydown", onKey); };
+    }
+
+    function startLaneRunner(stage, gameId) {
+      const temple = gameId === "temple";
+      const [canvas, ctx] = makeCanvas(stage, 520, 360);
+      const row = actionRow(stage);
+      instruction(stage, "← → switch lanes · ↑ / Space jump · ↓ slide · touch controls also work");
+      let lane = 1, obstacles = [], coins = [], score = 0, coinCount = 0, running = false, frame, last = 0, spawn = 0, jumpUntil = 0, slideUntil = 0;
+      const colors = temple
+        ? { sky: "#17251e", ground: "#263328", track: "#514332", edge: "#c5a35b", mark: "#d9c58f" }
+        : { sky: "#172430", ground: "#24343b", track: "#343942", edge: "#61d5c9", mark: "#a6bbc5" };
+
+      function reset() {
+        lane = 1; obstacles = []; coins = []; score = 0; coinCount = 0; spawn = 0; last = 0; jumpUntil = 0; slideUntil = 0; running = true;
+        status("DISTANCE 0000 · TOKENS 0");
+        row.replaceChildren(button("Restart run", reset));
+        frame = requestAnimationFrame(loop);
+      }
+
+      function drawObstacle(item) {
+        const x = 105 + item.lane * (310 / 3) + 35;
+        const y = item.y;
+        if (item.type === "branch") {
+          ctx.fillStyle = "#6b4931";
+          ctx.fillRect(x - 9, y + 10, 65, 16);
+          ctx.fillRect(x + 18, y + 22, 9, 36);
+          ctx.fillRect(x + 42, y + 22, 9, 36);
+        } else if (item.type === "train") {
+          drawRoundRect(ctx, x - 5, y - 10, 59, 76, 8, "#d45d57");
+          drawRoundRect(ctx, x + 3, y, 43, 26, 4, "#a8e3e7");
+          ctx.fillStyle = "#26313c";
+          ctx.fillRect(x + 1, y + 43, 8, 11);
+          ctx.fillRect(x + 39, y + 43, 8, 11);
+        } else if (item.type === "gap") {
+          ctx.fillStyle = "#0a0c11";
+          ctx.fillRect(x - 8, y + 12, 65, 30);
+          ctx.strokeStyle = colors.edge;
+          ctx.lineWidth = 3;
+          ctx.strokeRect(x - 8, y + 12, 65, 30);
+        } else {
+          drawRoundRect(ctx, x, y + 13, 48, 42, 7, item.type === "rock" ? "#98836a" : "#dc9653");
+          if (item.type === "barrier") {
+            ctx.fillStyle = "#f3d37a";
+            ctx.fillRect(x + 4, y + 23, 40, 6);
+          }
+        }
+      }
+
+      function loop(time) {
+        if (!running) return;
+        const dt = Math.min((time - (last || time)) / 16.67, 2.5);
+        last = time;
+        score += dt * 0.45;
+        const roadX = 105, roadW = 310;
+        ctx.fillStyle = colors.sky; ctx.fillRect(0, 0, 520, 360);
+        ctx.fillStyle = colors.ground; ctx.fillRect(0, 0, roadX - 20, 360); ctx.fillRect(roadX + roadW + 20, 0, 520, 360);
+        for (let y = -40 + (score * 3 % 80); y < 360; y += 80) {
+          ctx.fillStyle = temple ? "#49604a" : "#40545c";
+          ctx.fillRect(24, y, 34, 24); ctx.fillRect(462, y + 28, 35, 22);
+        }
+        ctx.fillStyle = colors.track; ctx.fillRect(roadX, 0, roadW, 360);
+        ctx.fillStyle = colors.edge; ctx.fillRect(roadX - 3, 0, 4, 360); ctx.fillRect(roadX + roadW - 1, 0, 4, 360);
+        for (let i = 1; i < 3; i++) {
+          for (let y = -32 + (score * 3 % 64); y < 360; y += 64) {
+            ctx.fillStyle = colors.mark; ctx.globalAlpha = 0.65; ctx.fillRect(roadX + i * (roadW / 3) - 2, y, 3, 32); ctx.globalAlpha = 1;
+          }
+        }
+
+        spawn += dt;
+        if (spawn > 38) {
+          const laneIndex = Math.floor(Math.random() * 3);
+          const types = temple ? ["rock", "branch", "gap"] : ["barrier", "train", "barrier"];
+          obstacles.push({ lane: laneIndex, y: -70, type: types[Math.floor(Math.random() * types.length)] });
+          if (Math.random() > 0.35) coins.push({ lane: Math.floor(Math.random() * 3), y: -100 });
+          spawn = 0;
+        }
+
+        const speed = 3.2 + Math.min(score / 450, 2);
+        obstacles.forEach(item => { item.y += speed * dt; drawObstacle(item); });
+        coins.forEach(coin => {
+          coin.y += speed * dt;
+          const x = roadX + coin.lane * (roadW / 3) + roadW / 6;
+          ctx.beginPath(); ctx.arc(x, coin.y, 9, 0, Math.PI * 2); ctx.fillStyle = "#ffd76a"; ctx.fill();
+          ctx.beginPath(); ctx.arc(x, coin.y, 4, 0, Math.PI * 2); ctx.fillStyle = "#fff2b0"; ctx.fill();
+          if (coin.lane === lane && coin.y > 292 && coin.y < 326) { coin.collected = true; coinCount++; score += 25; }
+        });
+        obstacles = obstacles.filter(item => item.y < 380);
+        coins = coins.filter(coin => coin.y < 380 && !coin.collected);
+
+        const jumping = time < jumpUntil, sliding = time < slideUntil;
+        const playerX = roadX + lane * (roadW / 3) + 35;
+        const playerY = jumping ? 260 : 292;
+        if (sliding) {
+          drawRoundRect(ctx, playerX, 315, 48, 24, 10, temple ? "#c0a3ff" : "#7cffe1");
+        } else {
+          drawRoundRect(ctx, playerX + 8, playerY, 32, 54, 13, temple ? "#ffb65c" : "#78d8ce");
+          ctx.beginPath(); ctx.arc(playerX + 24, playerY - 5, 13, 0, Math.PI * 2); ctx.fillStyle = "#f0c99e"; ctx.fill();
+        }
+
+        const hit = obstacles.find(item => item.lane === lane && item.y > 264 && item.y < 330 &&
+          !(jumping && ["rock", "gap", "barrier"].includes(item.type)) &&
+          !(sliding && item.type === "branch"));
+        if (hit) {
+          running = false;
+          const finalScore = Math.floor(score);
+          status(`RUN OVER · DISTANCE ${finalScore} · ${temple ? "RELICS" : "TOKENS"} ${coinCount}`);
+          recordScore(gameId, finalScore);
+          row.replaceChildren(button("Run again", reset, true));
+          return;
+        }
+        if (Math.floor(score) % 8 === 0) status(`DISTANCE ${String(Math.floor(score)).padStart(4, "0")} · ${temple ? "RELICS" : "TOKENS"} ${coinCount}`);
+        frame = requestAnimationFrame(loop);
+      }
+
+      function onKey(event) {
+        if (!running) return;
+        if (["ArrowLeft", "a", "A"].includes(event.key)) { event.preventDefault(); lane = Math.max(0, lane - 1); }
+        else if (["ArrowRight", "d", "D"].includes(event.key)) { event.preventDefault(); lane = Math.min(2, lane + 1); }
+        else if (["ArrowUp", " ", "w", "W"].includes(event.key)) { event.preventDefault(); jumpUntil = performance.now() + 700; }
+        else if (["ArrowDown", "s", "S"].includes(event.key)) { event.preventDefault(); slideUntil = performance.now() + 600; }
+      }
+      document.addEventListener("keydown", onKey);
+      addDirectionalControls(stage, direction => {
+        if (direction === "left") lane = Math.max(0, lane - 1);
+        if (direction === "right") lane = Math.min(2, lane + 1);
+        if (direction === "up") jumpUntil = performance.now() + 700;
+        if (direction === "down") slideUntil = performance.now() + 600;
+      }, "Runner controls");
+      canvas.addEventListener("pointerdown", event => {
+        const rect = canvas.getBoundingClientRect();
+        lane = event.clientX < rect.left + rect.width / 2 ? Math.max(0, lane - 1) : Math.min(2, lane + 1);
+      });
+      row.replaceChildren(button("Start running", reset, true));
+      status("READY WHEN YOU ARE");
+      return () => { running = false; cancelAnimationFrame(frame); document.removeEventListener("keydown", onKey); };
+    }
+
+    function startPerspectiveRacer(stage) {
+      const [canvas, ctx] = makeCanvas(stage, 520, 360);
+      const row = actionRow(stage);
+      instruction(stage, "← → or A / D to steer · avoid traffic · tap either side on touch screens");
+      let lane = 1, traffic = [], score = 0, running = false, frame, last = 0, spawn = 0;
+
+      function reset() {
+        lane = 1; traffic = []; score = 0; last = 0; spawn = 0; running = true;
+        status("DISTANCE 0000");
+        row.replaceChildren(button("Restart race", reset));
+        frame = requestAnimationFrame(loop);
+      }
+
+      function loop(time) {
+        if (!running) return;
+        const dt = Math.min((time - (last || time)) / 16.67, 2.5);
+        last = time;
+        score += dt * 0.7;
+        ctx.fillStyle = "#172338"; ctx.fillRect(0, 0, 520, 360);
+        ctx.fillStyle = "#415b43"; ctx.fillRect(0, 180, 520, 180);
+        ctx.fillStyle = "#667b91"; ctx.fillRect(0, 0, 520, 174);
+        ctx.fillStyle = "#f7cc80"; ctx.beginPath(); ctx.arc(420, 60, 25, 0, Math.PI * 2); ctx.fill();
+
+        const horizon = 155, center = 260;
+        ctx.fillStyle = "#37343b";
+        ctx.beginPath(); ctx.moveTo(center - 27, horizon); ctx.lineTo(center + 27, horizon); ctx.lineTo(500, 360); ctx.lineTo(20, 360); ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = "#f4db91"; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(center - 27, horizon); ctx.lineTo(20, 360); ctx.moveTo(center + 27, horizon); ctx.lineTo(500, 360); ctx.stroke();
+        for (let i = 1; i < 3; i++) {
+          const top = center + (i - 1) * 18;
+          const bottom = 20 + i * (480 / 3);
+          for (let y = horizon + ((score * 5) % 48); y < 360; y += 48) {
+            const progress = (y - horizon) / (360 - horizon);
+            const x = top + (bottom - top) * progress;
+            ctx.fillStyle = "#d9d4c2";
+            ctx.fillRect(x - 2, y, 4 + progress * 4, 18 + progress * 14);
+          }
+        }
+        spawn += dt;
+        if (spawn > 34) {
+          traffic.push({ lane: Math.floor(Math.random() * 3), depth: 0, color: ["#ff795a", "#7bb5ff", "#d0b1fa"][Math.floor(Math.random() * 3)] });
+          spawn = 0;
+        }
+        traffic.forEach(car => {
+          car.depth += 0.009 * dt;
+          const progress = Math.min(car.depth, 1);
+          const roadWidth = 54 + progress * 426;
+          const laneWidth = roadWidth / 3;
+          const x = center - roadWidth / 2 + laneWidth * (car.lane + 0.5);
+          const y = horizon + progress * 190;
+          const scale = 0.25 + progress * 0.85;
+          const w = 25 * scale, h = 38 * scale;
+          drawRoundRect(ctx, x - w / 2, y - h / 2, w, h, 5 * scale, car.color);
+          drawRoundRect(ctx, x - w * 0.32, y - h * 0.28, w * 0.64, h * 0.25, 3 * scale, "#dce9f5");
+        });
+        traffic = traffic.filter(car => car.depth < 1.15);
+
+        const playerRoadWidth = 480, playerLaneWidth = playerRoadWidth / 3;
+        const playerX = 20 + playerLaneWidth * (lane + 0.5);
+        drawRoundRect(ctx, playerX - 23, 292, 46, 55, 9, "#ff709f");
+        drawRoundRect(ctx, playerX - 15, 299, 30, 17, 4, "#bde9f2");
+
+        if (traffic.some(car => car.lane === lane && car.depth > 0.82)) {
+          running = false;
+          const finalScore = Math.floor(score);
+          status(`COLLISION · DISTANCE ${finalScore}`);
+          recordScore("car4d", finalScore);
+          row.replaceChildren(button("Race again", reset, true));
+          return;
+        }
+        if (Math.floor(score) % 8 === 0) status(`DISTANCE ${String(Math.floor(score)).padStart(4, "0")}`);
+        frame = requestAnimationFrame(loop);
+      }
+
+      function onKey(event) {
+        if (!running) return;
+        if (["ArrowLeft", "a", "A"].includes(event.key)) { event.preventDefault(); lane = Math.max(0, lane - 1); }
+        else if (["ArrowRight", "d", "D"].includes(event.key)) { event.preventDefault(); lane = Math.min(2, lane + 1); }
+      }
+      document.addEventListener("keydown", onKey);
+      canvas.addEventListener("pointerdown", event => {
+        const rect = canvas.getBoundingClientRect();
+        lane = event.clientX < rect.left + rect.width / 2 ? Math.max(0, lane - 1) : Math.min(2, lane + 1);
+      });
+      row.replaceChildren(button("Start race", reset, true));
       status("READY WHEN YOU ARE");
       return () => { running = false; cancelAnimationFrame(frame); document.removeEventListener("keydown", onKey); };
     }
